@@ -19,7 +19,7 @@ export function Header() {
                 <div className="flex grow max-lg:hidden">
                     <div className="flex items-center gap-2 mx-auto w-max">
                         <div className="mx-2 font-bold">
-                            <Link to={'/'} className="flex items-center p-3 px-6 rounded-xl transition-all hover:bg-primaryHover text-gray-700 hover:text-white">
+                            <Link to={'/start'} className="flex items-center p-3 px-6 rounded-xl transition-all hover:bg-primaryHover text-gray-700 hover:text-white">
                                 <Icon icon="playIcon"/>
                                 <span>Jugar</span>
                             </Link>

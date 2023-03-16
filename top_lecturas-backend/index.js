@@ -15,11 +15,9 @@ app.use(cors({
 
 app.use('/api', apiRoutes);
 
-const connectString = 'mongodb://' + config.DB_USER + ':' + config.DB_PASS + '@127.0.0.1:' + config.DB_PORT + '/' + config.DB_NAME + '?authSource=admin';
-
 mongoose.set('strictQuery', false);
 
-mongoose.connect(connectString).then(() => {
+mongoose.connect(config.MONGO_STRING).then(() => {
 
     console.log('----------------------------------------------------------------');
     console.log('Conectado a MongoDB');
