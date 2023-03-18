@@ -52,7 +52,9 @@ export default function Start() {
 
         await GameService.sendOption({ article: e.target.textContent })
             .then((data) => {
-                data.gameOver ? setStatus(data.gameOver) : setStatus(data.keepGoing);
+                data.gameOver
+                    ? setStatus(data.gameOver)
+                    : setStatus(data.keepGoing);
                 setArticles([]);
             })
             .catch((error) => {
@@ -86,7 +88,9 @@ export default function Start() {
         return (
             <div className="my-12 grow flex flex-col items-center">
                 <div className="max-w-md w-full bg-white p-6 shadow-md rounded-xl">
-                    <p className="mb-4 text-2xl text-center">Juego terminado: Perdiste</p>
+                    <p className="mb-4 text-2xl text-center">
+                        Juego terminado: Perdiste
+                    </p>
                     <Button
                         type="submit"
                         name="jugar_de_nuevo"
@@ -102,8 +106,8 @@ export default function Start() {
     return (
         <div className="my-8 w-full grow flex flex-col items-center justify-around">
             <div className="max-w-7xl w-full flex gap-4 justify-around">
-                {articles.length === 0 ? <Loading /> : ''}
-                {articles.map((item) => (
+                {!articles || articles.length === 0 ? <Loading /> : ''}
+                {articles && articles.map((item) => (
                     <div key={item.id} className="w-2/4">
                         <form>
                             <input
