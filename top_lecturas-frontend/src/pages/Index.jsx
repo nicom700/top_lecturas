@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Loading from 'src/components/Loading';
 import TitleH1 from 'src/components/TitleH1';
 import { userContext } from 'src/userContext';
