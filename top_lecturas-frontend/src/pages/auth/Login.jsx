@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { userContext } from 'src/userContext';
+import { validateEmail, validatePassword } from './Validate';
 import AuthService from 'src/services/auth';
 import Loading from 'src/components/Loading';
 import TitleH1 from 'src/components/TitleH1';
@@ -10,42 +11,85 @@ import Logo from 'src/components/Logo';
 import ErrorMsg from 'src/components/ErrorMsg';
 
 export default function Login() {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [disabledBtn, setDisabledBtn] = useState(false);
-
-    const [emailE, setEmailE] = useState(null);
-    const [passwordE, setPasswordE] = useState(null);
-
-    const [error, setError] = useState(null);
+    const { user, setUser, ready } = userContext();
     const [redirect, setRedirect] = useState(false);
 
-    const { user, setUser, ready } = userContext();
+    const formRef = useRef();
+    const [values, setValues] = useState({ email: '', password: '' });
+
+    const [error, setError] = useState(null);
+    const [emailE, setEmailE] = useState(null);
+    const [passwordE, setPasswordE] = useState(null);
+    const [disabledBtn, setDisabledBtn] = useState(false);
 
     async function handleLoginSubmit(e) {
         e.preventDefault();
         setDisabledBtn(true);
 
-        if (!validate()) {
-            console.log('No se pudo validar los datos');
+        let data = {};
+        const formData = new FormData(formRef.current);
+        formData.forEach((value, key) => (data[key] = value));
+
+        if (!validate(null, data)) {
+            setError('Error de validación');
             setDisabledBtn(false);
             return;
         }
 
-        try {
-            await AuthService.loginUser({ email, password })
-                .then((data) => {
-                    setUser(data);
-                    setRedirect(true);
-                })
-                .catch((error) => {
-                    setError(error.message);
-                    setDisabledBtn(false);
-                });
-        } catch (error) {
-            setError('Error al iniciar sesión, intente mas tarde');
-            setDisabledBtn(false);
+        await AuthService.loginUser(data)
+            .then((data) => {
+                setUser(data);
+                setRedirect(true);
+            })
+            .catch((error) => {
+                setError(error.message);
+                setDisabledBtn(false);
+            });
+    }
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setError(null);
+        if (name === 'email') setEmailE(null);
+        if (name === 'password') setPasswordE(null);
+
+        const newValues = {
+            ...values,
+            [name]: value,
+        };
+
+        setValues(newValues);
+    }
+
+    function handleBlur(e) {
+        const { name } = e.target;
+        validate(name, null);
+    }
+
+    function validate(inputName = null, formData = null) {
+        let errorMsgvalidateEmail;
+        let errorMsgvalidatePassword;
+
+        if (inputName == 'email' || formData) {
+            errorMsgvalidateEmail = formData
+                ? validateEmail(formData.email)
+                : validateEmail(values.email);
+            if (errorMsgvalidateEmail) setEmailE(errorMsgvalidateEmail);
         }
+        if (inputName == 'password' || formData) {
+            errorMsgvalidatePassword = formData
+                ? validatePassword(formData.password)
+                : validatePassword(values.password);
+            if (errorMsgvalidatePassword)
+                setPasswordE(errorMsgvalidatePassword);
+        }
+
+        if (errorMsgvalidateEmail || errorMsgvalidatePassword) {
+            return false;
+        }
+
+        return true;
     }
 
     if (!ready) {
@@ -54,32 +98,6 @@ export default function Login() {
 
     if (user || redirect) {
         return <Navigate to={'/'} />;
-    }
-
-    function validate() {
-        if (!email) {
-            setEmailE(['* Email es obligatorio']);
-        }
-        if (!password) {
-            setPasswordE(['* Contraseña es obligatorio']);
-        }
-
-        if (!email || !password) {
-            return false;
-        }
-        return true;
-    }
-
-    function onEmailChange(e) {
-        setEmailE(null);
-        setError(null);
-        setEmail(e.target.value);
-    }
-
-    function onPasswordChange(e) {
-        setPasswordE(null);
-        setError(null);
-        setPassword(e.target.value);
     }
 
     return (
@@ -92,14 +110,19 @@ export default function Login() {
                 </div>
                 <div className="max-w-md w-full bg-white p-6 shadow-md rounded-xl">
                     <TitleH1 text="Iniciar sesión" />
-                    <form className="mx-auto" onSubmit={handleLoginSubmit}>
+                    <form
+                        className="mx-auto"
+                        onSubmit={handleLoginSubmit}
+                        ref={formRef}
+                    >
                         {error && <ErrorMsg type="background" msg={error} />}
 
                         <Input
                             type="email"
                             name="email"
                             placeholder="tu@email.com"
-                            onChange={onEmailChange}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             error={emailE ? 'border-red-500' : ''}
                         />
                         {emailE && <ErrorMsg msg={emailE} />}
@@ -108,7 +131,8 @@ export default function Login() {
                             type="password"
                             name="password"
                             placeholder="Contraseña"
-                            onChange={onPasswordChange}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             error={passwordE ? 'border-red-500' : ''}
                         />
                         {passwordE && <ErrorMsg msg={passwordE} />}
