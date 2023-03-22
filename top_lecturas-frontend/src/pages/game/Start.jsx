@@ -106,19 +106,22 @@ export default function Start() {
                 {articles.map((item) => (
                     <div key={item.id} className="w-2/4">
                         <form>
-                            <input
-                                type="hidden"
-                                name="option"
-                                value={item.article}
-                                readOnly
-                            />
-                            <Button
-                                type="submit"
-                                name={item.id}
-                                value={item.article}
-                                disabled={disabledBtn}
-                                onClick={handleArticleSubmit}
-                            />
+                            <div>
+                                <input
+                                    type="hidden"
+                                    name="option"
+                                    value={item.article}
+                                    readOnly
+                                />
+                                <img src={item.url} />
+                                <Button
+                                    type="submit"
+                                    name={item.id}
+                                    value={item.article}
+                                    disabled={disabledBtn}
+                                    onClick={handleArticleSubmit}
+                                />
+                            </div>
                         </form>
                     </div>
                 ))}
