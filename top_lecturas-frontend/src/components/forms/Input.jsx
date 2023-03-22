@@ -1,4 +1,4 @@
-export default function Input({type, name, placeholder = '', onChange = null, error = ''}){
+export default function Input({type, name, placeholder = '', onChange = null, onBlur = null, error = ''}){
 
     const classNames = 'w-full h-12 my-1 py-2 px-4 rounded-xl border border-gray-300' + (error ? ' ' + error : '');
 
@@ -7,6 +7,7 @@ export default function Input({type, name, placeholder = '', onChange = null, er
             type={type}
             name={name}
             placeholder={placeholder}
-            onChange={onChange} />
+            onChange={onChange}
+            onBlur={onBlur} />
     );
 }

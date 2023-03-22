@@ -1,53 +1,59 @@
-const loginUser = async (user) => {
-    const loginResponse = await fetch('http://localhost:3000/api/login', {
-        method: "POST",
+const loginUser = (user) => {
+    return fetch('http://localhost:3000/api/login', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         credentials: 'include',
         body: JSON.stringify(user)
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        if (data.error) throw new Error(data.error);
+        return data;
+    }).catch(error => {
+        if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
+        throw new Error(error);
     });
-
-    const userData = await loginResponse.json();
-    console.log('loginUser:', userData);
-
-    if (loginResponse.status === 403) {
-        throw new Error(userData.error);
-    }
-
-    return userData;
 }
 
-const registerUser = async (user) => {
-    const userResponse = await fetch('http://localhost:3000/api/register', {
-        method: "POST",
+const registerUser = (user) => {
+    return fetch('http://localhost:3000/api/register', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(user)
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        if (data.error) throw new Error(data.error);
+        return data;
+    }).catch(error => {
+        if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
+        throw new Error(error);
     });
-
-    const userData = await userResponse.json();
-
-    if (userResponse.status !== 200) {
-        console.log(userData);
-        throw new Error(userData.error);
-    }
-
-    return userData;
 }
 
-const logout = async () => {
-    await fetch('http://localhost:3000/api/logout', {
-        method: "GET",
+const logout = () => {
+    return fetch('http://localhost:3000/api/logout', {
+        method: 'GET',
         credentials: 'include',
     });
 }
 
-const getCurrentUser = async () => {
-    return await fetch('http://localhost:3000/api/profile', {
-        method: "GET",
+const getCurrentUser = () => {
+    return fetch('http://localhost:3000/api/profile', {
+        method: 'GET',
         credentials: 'include',
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        if (data.error) throw new Error(data.error);
+        return data;
+    }).catch(error => {
+        if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
+        throw new Error(error);
     });
 }
 

@@ -9,16 +9,13 @@ export const UserContextProvider = ({ children }) => {
 
     useEffect(() => {
         AuthService.getCurrentUser()
-            .then((res) => res.json())
             .then((profile) => {
-                if (!profile.error) {
-                    console.log('profileInUserContext:', profile);
-                    setUser({
-                        _id: profile._id,
-                        name: profile.name,
-                        email: profile.email,
-                    });
-                }
+                //console.log('profileInUserContext:', profile);
+                setUser({
+                    _id: profile._id,
+                    name: profile.name,
+                    email: profile.email,
+                });
             })
             .catch((error) => {
                 console.log(error);

@@ -4,21 +4,23 @@ import { userContext } from 'src/userContext';
 import GameService from 'src/services/game';
 import Button from 'src/components/forms/Button';
 import Loading from 'src/components/Loading';
+import TitleH1 from 'src/components/TitleH1';
 
 export default function Start() {
     const { user, ready } = userContext();
     const [disabledBtn, setDisabledBtn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('');
+    const [error, setError] = useState();
 
-    const [articles, setArticles] = useState([]);
+    const [articles, setArticles] = useState(null);
     const [totalPoints, setTotalPoints] = useState();
     const [totalWinStreaks, setTotalWinStreaks] = useState();
     const [lastWinStreak, setLastWinStreak] = useState();
 
     useEffect(() => {
-        startGame();
-    }, []);
+        if(!articles) startGame();
+    }, [articles]);
 
     function startGame() {
         if (isLoading) return;
@@ -34,7 +36,7 @@ export default function Start() {
                 setLastWinStreak(data.last_win_streak);
             })
             .catch((error) => {
-                console.log(error);
+                setError(error.message);
             })
             .finally(() => {
                 setStatus('');
@@ -43,20 +45,24 @@ export default function Start() {
             });
     }
 
-    async function handleArticleSubmit(e) {
+    function handleArticleSubmit(e) {
         e.preventDefault();
         if (isLoading) return;
 
         setDisabledBtn(true);
         setIsLoading(true);
 
-        await GameService.sendOption({ article: e.target.textContent })
+        GameService.sendOption({ article: e.target.textContent })
             .then((data) => {
-                data.gameOver ? setStatus(data.gameOver) : setStatus(data.keepGoing);
-                setArticles([]);
+                if (data.gameOver){
+                    setStatus(data.gameOver);
+                }else{
+                    setStatus(data.keepGoing);
+                    setArticles(null);
+                }
             })
             .catch((error) => {
-                console.log(error);
+                setError(error.message);
             })
             .finally(() => {
                 setDisabledBtn(false);
@@ -78,15 +84,38 @@ export default function Start() {
         return <Navigate to={'/login'} />;
     }
 
+    if(error){
+        return (
+            <div className="my-12 grow flex flex-col items-center">
+                <TitleH1 text="Algo salio mal 😖" />
+                <p className="mb-4 text-2xl text-center">{error}</p>
+            </div>
+        );
+    }
+
     if (status === 'keepGoing') {
-        startGame();
+        return (
+            <div className="my-8 w-full grow flex flex-col items-center justify-around">
+                <div className="max-w-7xl w-full flex flex-col gap-4">
+                    <TitleH1 text="Muy Bien, sigue asi 😁" />
+                    <Loading />
+                </div>
+                <div className="m-4 text-3xl flex gap-8 justify-evenly">
+                    <div>Racha actual: {lastWinStreak}</div>
+                    <div>Tu mejor racha: {totalWinStreaks}</div>
+                    <div>Puntos totales: {totalPoints}</div>
+                </div>
+            </div>
+        );
     }
 
     if (status === 'gameOver') {
         return (
             <div className="my-12 grow flex flex-col items-center">
                 <div className="max-w-md w-full bg-white p-6 shadow-md rounded-xl">
-                    <p className="mb-4 text-2xl text-center">Juego terminado: Perdiste</p>
+                    <p className="mb-4 text-2xl text-center">
+                        Juego terminado: Perdiste
+                    </p>
                     <Button
                         type="submit"
                         name="jugar_de_nuevo"
@@ -102,8 +131,8 @@ export default function Start() {
     return (
         <div className="my-8 w-full grow flex flex-col items-center justify-around">
             <div className="max-w-7xl w-full flex gap-4 justify-around">
-                {articles.length === 0 ? <Loading /> : ''}
-                {articles.map((item) => (
+                {!articles && <Loading />}
+                {articles && articles.map((item) => (
                     <div key={item.id} className="w-2/4">
                         <form>
                             <div>

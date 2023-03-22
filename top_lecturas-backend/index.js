@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import config from './config.js';
 import apiRoutes from './routes/index.js';
+import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(cors({
 }));
 
 app.use('/api', apiRoutes);
+app.use(errorMiddleware);
 
 mongoose.set('strictQuery', false);
 

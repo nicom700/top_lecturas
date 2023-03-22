@@ -1,5 +1,6 @@
 import { findByIdRepository, loginRepository, registerRepository } from '../repositories/users.js';
 import config from '../config.js';
+import helper from '../helpers/helpers.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -34,8 +35,11 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, passwordConfirmation } = req.body;
         const bcryptSalt = bcrypt.genSaltSync(10);
+
+        if (password !== passwordConfirmation) return res.status(403).json({error: 'Las contraseñas no coinciden'});
+        if(!helper.validateEmail(email)) return res.status(403).json({error: 'El email no es válido'});
 
         const user = await registerRepository({
             name,
@@ -43,8 +47,9 @@ export const register = async (req, res) => {
             password: bcrypt.hashSync(password, bcryptSalt)
         });
 
-        if (user.error) return res.status(403).json(user.error);
+        if (user.error) return res.status(403).json({error: user.error});
         if (user) return res.status(200).json({ _id: user._id, name: user.name, email: user.email });
+
     } catch (error) {
         res.status(403).json(error);
     }
