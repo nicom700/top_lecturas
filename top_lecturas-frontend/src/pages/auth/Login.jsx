@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { userContext } from 'src/userContext';
+import { useUserContext } from 'src/context/UserContext';
 import { validateEmail, validatePassword } from './Validate';
 import AuthService from 'src/services/auth';
 import Loading from 'src/components/Loading';
@@ -11,7 +11,7 @@ import Logo from 'src/components/Logo';
 import ErrorMsg from 'src/components/ErrorMsg';
 
 export default function Login() {
-    const { user, setUser, ready } = userContext();
+    const { user, setUser, ready } = useUserContext();
     const [redirect, setRedirect] = useState(false);
 
     const formRef = useRef();
@@ -68,24 +68,24 @@ export default function Login() {
     }
 
     function validate(inputName = null, formData = null) {
-        let errorMsgvalidateEmail;
-        let errorMsgvalidatePassword;
+        let errorMsgValidateEmail;
+        let errorMsgValidatePassword;
 
         if (inputName == 'email' || formData) {
-            errorMsgvalidateEmail = formData
+            errorMsgValidateEmail = formData
                 ? validateEmail(formData.email)
                 : validateEmail(values.email);
-            if (errorMsgvalidateEmail) setEmailE(errorMsgvalidateEmail);
+            if (errorMsgValidateEmail) setEmailE(errorMsgValidateEmail);
         }
         if (inputName == 'password' || formData) {
-            errorMsgvalidatePassword = formData
+            errorMsgValidatePassword = formData
                 ? validatePassword(formData.password)
                 : validatePassword(values.password);
-            if (errorMsgvalidatePassword)
-                setPasswordE(errorMsgvalidatePassword);
+            if (errorMsgValidatePassword)
+                setPasswordE(errorMsgValidatePassword);
         }
 
-        if (errorMsgvalidateEmail || errorMsgvalidatePassword) {
+        if (errorMsgValidateEmail || errorMsgValidatePassword) {
             return false;
         }
 
@@ -120,20 +120,22 @@ export default function Login() {
                         <Input
                             type="email"
                             name="email"
+                            value={values.email}
                             placeholder="tu@email.com"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={emailE ? 'border-red-500' : ''}
+                            error={emailE ? 'outline-red-500' : ''}
                         />
                         {emailE && <ErrorMsg msg={emailE} />}
 
                         <Input
                             type="password"
                             name="password"
+                            value={values.password}
                             placeholder="Contraseña"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={passwordE ? 'border-red-500' : ''}
+                            error={passwordE ? 'outline-red-500' : ''}
                         />
                         {passwordE && <ErrorMsg msg={passwordE} />}
 

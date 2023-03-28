@@ -1,10 +1,10 @@
 import { Link, Navigate } from 'react-router-dom';
 import Loading from 'src/components/Loading';
 import TitleH1 from 'src/components/TitleH1';
-import { userContext } from 'src/userContext';
+import { useUserContext } from 'src/context/UserContext';
 
 export default function Dashboard() {
-    const { user, ready } = userContext();
+    const { user, ready } = useUserContext();
 
     if (!ready) {
         return <Loading />;

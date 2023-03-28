@@ -57,11 +57,51 @@ const getCurrentUser = () => {
     });
 }
 
+const updateUser = (user) => {
+    return fetch('http://localhost:3000/api/user/edit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(user)
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        if (data.error) throw new Error(data.error);
+        return data;
+    }).catch(error => {
+        if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
+        throw new Error(error);
+    });
+}
+
+const updateAvatar = (avatar) => {
+    return fetch('http://localhost:3000/api/user/avatar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(avatar)
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        if (data.error) throw new Error(data.error);
+        return data;
+    }).catch(error => {
+        if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
+        throw new Error(error);
+    });
+}
+
 const AuthService = {
     loginUser,
     registerUser,
     logout,
     getCurrentUser,
+    updateUser,
+    updateAvatar,
 };
 
 export default AuthService;

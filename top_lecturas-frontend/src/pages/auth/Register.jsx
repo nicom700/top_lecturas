@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { userContext } from 'src/userContext';
+import { useUserContext } from 'src/context/UserContext';
 import {
     validateName,
     validateEmail,
@@ -16,7 +16,7 @@ import Logo from 'src/components/Logo';
 import ErrorMsg from 'src/components/ErrorMsg';
 
 export default function Register() {
-    const { user, setUser, ready } = userContext();
+    const { user, setUser, ready } = useUserContext();
     const [redirect, setRedirect] = useState(false);
 
     const formRef = useRef();
@@ -94,32 +94,32 @@ export default function Register() {
     }
 
     function validate(inputName = null, formData = null) {
-        let errorMsgvalidateName;
-        let errorMsgvalidateEmail;
-        let errorMsgvalidatePassword;
-        let errorMsgvalidatePasswordConfirmation;
+        let errorMsgValidateName;
+        let errorMsgValidateEmail;
+        let errorMsgValidatePassword;
+        let errorMsgValidatePasswordConfirmation;
 
         if (inputName == 'name' || formData) {
-            errorMsgvalidateName = formData
+            errorMsgValidateName = formData
                 ? validateName(formData.name)
                 : validateName(values.name);
-            if (errorMsgvalidateName) setNameE(errorMsgvalidateName);
+            if (errorMsgValidateName) setNameE(errorMsgValidateName);
         }
         if (inputName == 'email' || formData) {
-            errorMsgvalidateEmail = formData
+            errorMsgValidateEmail = formData
                 ? validateEmail(formData.email)
                 : validateEmail(values.email);
-            if (errorMsgvalidateEmail) setEmailE(errorMsgvalidateEmail);
+            if (errorMsgValidateEmail) setEmailE(errorMsgValidateEmail);
         }
         if (inputName == 'password' || formData) {
-            errorMsgvalidatePassword = formData
+            errorMsgValidatePassword = formData
                 ? validatePassword(formData.password)
                 : validatePassword(values.password);
-            if (errorMsgvalidatePassword)
-                setPasswordE(errorMsgvalidatePassword);
+            if (errorMsgValidatePassword)
+                setPasswordE(errorMsgValidatePassword);
         }
         if (inputName == 'passwordConfirmation' || formData) {
-            errorMsgvalidatePasswordConfirmation = formData
+            errorMsgValidatePasswordConfirmation = formData
                 ? validatePasswordConfirmation(
                       formData.password,
                       formData.passwordConfirmation
@@ -128,15 +128,15 @@ export default function Register() {
                       values.password,
                       values.passwordConfirmation
                   );
-            if (errorMsgvalidatePasswordConfirmation)
-                setPasswordConfirmationE(errorMsgvalidatePasswordConfirmation);
+            if (errorMsgValidatePasswordConfirmation)
+                setPasswordConfirmationE(errorMsgValidatePasswordConfirmation);
         }
 
         if (
-            errorMsgvalidateName ||
-            errorMsgvalidateEmail ||
-            errorMsgvalidatePassword ||
-            errorMsgvalidatePasswordConfirmation
+            errorMsgValidateName ||
+            errorMsgValidateEmail ||
+            errorMsgValidatePassword ||
+            errorMsgValidatePasswordConfirmation
         ) {
             return false;
         }
@@ -172,41 +172,45 @@ export default function Register() {
                         <Input
                             type="text"
                             name="name"
+                            value={values.name}
                             placeholder="John Doe"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={nameE ? 'border-red-500' : ''}
+                            error={nameE ? 'outline-red-500' : ''}
                         />
                         {nameE && <ErrorMsg msg={nameE} />}
 
                         <Input
                             type="email"
                             name="email"
+                            value={values.email}
                             placeholder="tu@email.com"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={emailE ? 'border-red-500' : ''}
+                            error={emailE ? 'outline-red-500' : ''}
                         />
                         {emailE && <ErrorMsg msg={emailE} />}
 
                         <Input
                             type="password"
                             name="password"
+                            value={values.password}
                             placeholder="Contraseña"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={passwordE ? 'border-red-500' : ''}
+                            error={passwordE ? 'outline-red-500' : ''}
                         />
                         {passwordE && <ErrorMsg msg={passwordE} />}
 
                         <Input
                             type="password"
                             name="passwordConfirmation"
+                            value={values.passwordConfirmation}
                             placeholder="Repetir contraseña"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                passwordConfirmationE ? 'border-red-500' : ''
+                                passwordConfirmationE ? 'outline-red-500' : ''
                             }
                         />
                         {passwordConfirmationE && (

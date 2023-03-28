@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { userContext } from 'src/userContext';
+import { useUserContext } from 'src/context/UserContext';
 import GameService from 'src/services/game';
 import Button from 'src/components/forms/Button';
 import Loading from 'src/components/Loading';
 import TitleH1 from 'src/components/TitleH1';
 
 export default function Start() {
-    const { user, ready } = userContext();
+    const { user, ready } = useUserContext();
     const [disabledBtn, setDisabledBtn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('');
