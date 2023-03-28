@@ -9,7 +9,7 @@ export const login = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) return res.status(403).send({ error: 'Complete todos los campos requeridos.' });
-        //if (!helper.validateEmail(email) || !helper.validatePassword(password)) return res.status(403).json({ error: 'El email o la contraseña no son correctas.' });
+        if (!helper.validateEmail(email) || !helper.validatePassword(password)) return res.status(403).json({ error: 'El email o la contraseña no son correctas.' });
 
         const user = await loginRepository(email);
 
@@ -81,10 +81,6 @@ export const updateUser = async (req, res) => {
     try {
         const { user } = req;
         const { name, email, password, passwordConfirmation } = req.body;
-        
-        console.log('----------------------------------------------------------------');
-        //console.log('body', req.body);
-        //console.log('user del req', req.user);
 
         if (!name || !email) return res.status(403).send({ error: 'Complete todos los campos requeridos.' });
         if (!helper.validateUsername(name)) return res.status(403).json({ error: 'El nombre de usuario debe tener (entre 3 y 24 caracteres). Puede contener "letras", "números", ".", "-" y "_". Los caracteres no pueden aparecer más de uno de forma consecutiva.' });
@@ -105,7 +101,6 @@ export const updateUser = async (req, res) => {
             }
         }
 
-
         const userWillUpdate = await findByIdRepository(user);
         console.log('userWillUpdate:', userWillUpdate);
         console.log('userNewData:', userNewData);
@@ -118,8 +113,6 @@ export const updateUser = async (req, res) => {
 
         if (userUpdated.error) return res.status(403).json({ error: userUpdated.error });
         if (userUpdated) return res.status(200).json({ _id: userUpdated._id, name: userUpdated.name, email: userUpdated.email, avatar: userUpdated.avatar });
-
-        //return res.status(200).json({ _id: user._id, name: user.name, email: user.email, avatar: user.avatar });
         
     } catch (error) {
         res.status(403).json(error);
@@ -159,10 +152,6 @@ export const updateAvatar = async (req, res) => {
                 mouthType: req.body.mouthType,
                 skinColor: req.body.skinColor
             }
-
-
-            console.log('----------------------------------------------------------------');
-            console.log('avatar', avatar);
 
             const updatedUserAvatar = await updateUserAvatarRepository(
                 userWillUpdate,
