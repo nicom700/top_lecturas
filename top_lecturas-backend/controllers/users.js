@@ -50,10 +50,27 @@ export const register = async (req, res) => {
         if (!helper.validateUsername(name)) return res.status(403).json({ error: 'El nombre de usuario debe tener (entre 3 y 24 caracteres). Puede contener "letras", "números", ".", "-" y "_". Los caracteres no pueden aparecer más de uno de forma consecutiva.' });
         if (!helper.validatePassword(password)) return res.status(403).json({ error: 'La contraseña debe tener al menos 8 caracteres, contener al menos una "letra mayúscula", una "letra minúscula" y un "número". También puede contener caracteres especiales.' });
 
+        const avatar = {
+            topType: 'ShortHairDreads01',
+            accessoriesType: 'Blank',
+            hatColor: 'Black',
+            hairColor: 'BrownDark',
+            facialHairType: 'Blank',
+            facialHairColor: 'Auburn',
+            clotheType: 'Hoodie',
+            clotheColor: 'Heather',
+            graphicType: 'Bat',
+            eyeType: 'Default',
+            eyebrowType: 'Default',
+            mouthType: 'Default',
+            skinColor: 'Pale',
+        }
+
         const user = await registerRepository({
             name,
             email,
-            password: bcrypt.hashSync(password, bcryptSalt)
+            password: bcrypt.hashSync(password, bcryptSalt),
+            avatar
         });
 
         if (user.error) return res.status(403).json({ error: user.error });
