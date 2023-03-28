@@ -8,6 +8,7 @@ import Select from 'src/components/forms/Select';
 import Button from 'src/components/forms/Button';
 import ErrorMsg from 'src/components/ErrorMsg';
 import Avatar from 'avataaars';
+import { toast, Toaster } from 'react-hot-toast';
 
 export default function AvatarForm() {
     const { user, ready, updateAvatar } = useUserContext();
@@ -75,10 +76,12 @@ export default function AvatarForm() {
                     //console.log('res:', res);    
                     updateAvatar(res.avatar);
                     setUpdateUser(false);
+                    toast.success('Guardado.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
                     return res;
                 })
                 .catch((error) => {
                     setError(error.message);
+                    toast.error('Algo salió mal.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
                 });
         }
     
@@ -134,6 +137,7 @@ export default function AvatarForm() {
 
     return (
         <form onSubmit={handleSaveSubmit} ref={formRef}>
+            <Toaster position="top-right" />
             <div className="grid grid-cols-4 grid-rows-1 grid-flow-row-dense gap-6 max-lg:flex max-lg:flex-col">
                 <div className="col-start-2 col-span-3 flex gap-2">
                     {error && <ErrorMsg type="background" msg={error} />}
@@ -142,7 +146,7 @@ export default function AvatarForm() {
             <div className="mb-4 flex gap-6 max-lg:flex-col">
                 <div className="flex flex-col items-center gap-2">
                     <div className="flex flex-col w-[290px] h-[290px] max-lg:h-full gap-4">
-                        <div className="w-full p-4 flex items-center justify-center border border-gray-300 rounded-xl">
+                        <div className="w-full p-4 flex items-center justify-center border border-gray-300 dark:border-zinc-600 rounded-xl">
                             <div className="w-64 h-64">
                                 {avatarComponent ? (
                                     avatarComponent
@@ -164,7 +168,7 @@ export default function AvatarForm() {
                     {values && selectInputs ? (
                         <div className="grid grid-cols-3 grid-rows-1 grid-flow-row-dense gap-2 max-md:flex max-md:flex-col">
                             <div className="col-span-2">
-                                <div className="mb-2 p-4 bg-slate-100 rounded-xl grid grid-cols-2 gap-2 max-md:flex max-md:flex-col">
+                                <div className="mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl grid grid-cols-2 gap-2 max-md:flex max-md:flex-col">
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="topType">Top</label>
                                         <Select
@@ -188,7 +192,7 @@ export default function AvatarForm() {
                                         />
                                     </div>
                                 </div>
-                                <div className="mb-2 p-4 bg-slate-100 rounded-xl grid grid-cols-2 gap-2 max-md:flex max-md:flex-col">
+                                <div className="mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl grid grid-cols-2 gap-2 max-md:flex max-md:flex-col">
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="hatColor">
                                             🎨 HatColor
@@ -212,7 +216,7 @@ export default function AvatarForm() {
                                         />
                                     </div>
                                 </div>
-                                <div className="mb-2 p-4 bg-slate-100 rounded-xl grid grid-cols-2 gap-2 max-md:flex max-md:flex-col">
+                                <div className="mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl grid grid-cols-2 gap-2 max-md:flex max-md:flex-col">
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="facialHairType">
                                             Facial Hair
@@ -240,7 +244,7 @@ export default function AvatarForm() {
                                         />
                                     </div>
                                 </div>
-                                <div className="mb-2 p-4 bg-slate-100 rounded-xl grid grid-cols-3 gap-2 max-md:flex max-md:flex-col">
+                                <div className="mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl grid grid-cols-3 gap-2 max-md:flex max-md:flex-col">
                                     <div className="flex flex-col gap-1">
                                         <label htmlFor="clotheType">
                                             👔 Clothes
@@ -277,7 +281,7 @@ export default function AvatarForm() {
                                 </div>
                             </div>
                             <div className="col-span-1">
-                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 rounded-xl">
+                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl">
                                     <label htmlFor="eyeType">👁 Eyes</label>
                                     <Select
                                         name="eyeType"
@@ -286,7 +290,7 @@ export default function AvatarForm() {
                                         selected={values.eyeType}
                                     />
                                 </div>
-                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 rounded-xl">
+                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl">
                                     <label htmlFor="eyebrowType">
                                         ✏️ Eyebrow
                                     </label>
@@ -297,7 +301,7 @@ export default function AvatarForm() {
                                         selected={values.eyebrowType}
                                     />
                                 </div>
-                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 rounded-xl">
+                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl">
                                     <label htmlFor="mouthType">👄 Mouth</label>
                                     <Select
                                         name="mouthType"
@@ -306,7 +310,7 @@ export default function AvatarForm() {
                                         selected={values.mouthType}
                                     />
                                 </div>
-                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 rounded-xl">
+                                <div className="flex flex-col gap-1 mb-2 p-4 bg-slate-100 text-gray-700 dark:text-gray-300 dark:bg-bgDarkSecondary rounded-xl">
                                     <label htmlFor="skinColor">🎨 Skin</label>
                                     <Select
                                         name="skinColor"
@@ -318,7 +322,7 @@ export default function AvatarForm() {
                             </div>
                         </div>
                     ) : (
-                        <div className="w-full h-[290px] max-lg:h-full bg-slate-100 rounded-xl max-md:p-6 p-8">
+                        <div className="w-full h-[290px] max-lg:h-full bg-slate-100 dark:bg-bgDarkSecondary rounded-xl max-md:p-6 p-8">
                             <Loading />
                         </div>
                     )}

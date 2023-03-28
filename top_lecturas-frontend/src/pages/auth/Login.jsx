@@ -108,7 +108,7 @@ export default function Login() {
                         className={'w-80 h-80 max-lg:w-48 max-lg:h-48 m-auto'}
                     />
                 </div>
-                <div className="max-w-md w-full bg-white p-6 shadow-md rounded-xl">
+                <div className="max-w-md w-full bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                     <TitleH1 text="Iniciar sesión" />
                     <form
                         className="mx-auto"
@@ -124,6 +124,7 @@ export default function Login() {
                             placeholder="tu@email.com"
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            autoComplete="on"
                             error={emailE ? 'outline-red-500' : ''}
                         />
                         {emailE && <ErrorMsg msg={emailE} />}
@@ -146,10 +147,10 @@ export default function Login() {
                                 value="Ingresar"
                                 disabled={disabledBtn}
                             />
-                            <div className="text-center py-4 text-gray-500">
+                            <div className="text-center py-4 text-gray-500 dark:text-gray-300">
                                 <span>Aún no tienes cuenta? </span>
                                 <Link
-                                    className="underline font-semibold text-gray-700"
+                                    className="underline font-semibold hover:text-primaryHover transition-all text-primaryDark dark:hover:text-primaryHoverDark"
                                     to={'/register'}
                                 >
                                     Regístrate

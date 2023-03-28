@@ -12,6 +12,7 @@ import {
     validateForUpdatePassword,
 } from 'src/pages/auth/Validate';
 import ErrorMsg from 'src/components/ErrorMsg';
+import { toast, Toaster } from 'react-hot-toast';
 
 export default function ProfileForm() {
     const { user, setUser, ready } = useUserContext();
@@ -69,6 +70,7 @@ export default function ProfileForm() {
         if (!validate(data)) {
             setError('Error de validación');
             setDisabledBtn(false);
+            toast.error('Algo salió mal.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
             return;
         }
 
@@ -78,10 +80,21 @@ export default function ProfileForm() {
                 setUser(res);
                 //console.log('res', res);
                 setDisabledBtn(false);
+                toast.success('Guardado.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
+                /* toast.custom((t) => (
+                    <div
+                        className={`text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-700 px-6 py-4 shadow-md rounded-xl ${
+                            t.visible ? 'animate-enter' : 'animate-leave'
+                        }`}
+                    >
+                        {icon} Guardado. 😉
+                    </div>
+                )); */
             })
             .catch((error) => {
                 setError(error.message);
                 setDisabledBtn(false);
+                toast.error('Algo salió mal.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
             });
     }
 
@@ -158,6 +171,7 @@ export default function ProfileForm() {
 
     return (
         <form onSubmit={handleSaveSubmit} ref={formRef}>
+            <Toaster position="top-right" />
             <div className="grid grid-cols-4 grid-rows-1 grid-flow-row-dense gap-6 max-lg:flex max-lg:flex-col">
                 <div className="col-start-2 col-span-3 flex gap-2">
                     {error && <ErrorMsg type="background" msg={error} />}
@@ -165,13 +179,13 @@ export default function ProfileForm() {
             </div>
             <div className="mb-4 flex justify-center gap-6 max-lg:flex-col">
                 <div className="w-[290px] h-[290px] flex flex-col items-center gap-2 m-auto">
-                    <div className="p-4 flex items-center justify-center border border-gray-300 rounded-xl">
+                    <div className="p-4 flex items-center justify-center border border-gray-300 dark:border-zinc-600 rounded-xl">
                         <div className="w-64 h-64">
                             {avatarComponent ? avatarComponent : <Loading />}
                         </div>
                     </div>
                 </div>
-                <div className="w-full min-h-fit bg-slate-100 rounded-xl max-md:p-6 p-8 ">
+                <div className="w-full min-h-fit bg-slate-100 dark:bg-bgDarkSecondary rounded-xl max-md:p-6 p-8 text-gray-700 dark:text-gray-300">
                     {values ? (
                         <div className="h-full grid grid-cols-2 gap-4 max-md:flex max-md:flex-col max-md:gap-2">
                             <div className="flex flex-col">

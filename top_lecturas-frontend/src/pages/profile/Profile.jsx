@@ -22,16 +22,16 @@ export default function Profile() {
 
     return (
         <div className="my-8 max-md:px-2 px-8 w-full flex flex-col items-center">
-            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around bg-white p-6 shadow-md rounded-xl">
+            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                 <Tab.Group>
-                    <Tab.List className="flex space-x-1 border border-gray-300 rounded-full bg-slate-100 p-2 w-64 m-auto">
+                    <Tab.List className="flex space-x-1 border border-gray-300 dark:border-transparent rounded-full bg-slate-100 dark:bg-bgDarkSecondary p-2 w-64 m-auto">
                         <Tab
                             className={({ selected }) =>
                                 classNames(
-                                    'w-full rounded-l-3xl rounded-r-lg py-2.5 text-sm font-medium leading-5 text-gray-700  transition-all',
-                                    'hover:bg-primaryHover hover:text-white active:bg-primaryActive active:text-white',
+                                    'w-full rounded-l-3xl rounded-r-lg py-2.5 text-sm font-semibold leading-5 text-gray-700 dark:text-gray-300 transition-all',
+                                    'hover:bg-primaryHover hover:text-white active:bg-primaryActive active:text-white dark:hover:bg-DarkBtnHover dark:active:bg-DarkBtnActive',
                                     selected
-                                        ? 'bg-primary text-white shadow'
+                                        ? 'bg-primary dark:bg-DarkBtn text-white shadow'
                                         : 'text-gray-400'
                                 )
                             }
@@ -41,10 +41,10 @@ export default function Profile() {
                         <Tab
                             className={({ selected }) =>
                                 classNames(
-                                    'w-full rounded-r-3xl rounded-l-lg py-2.5 text-sm font-medium leading-5 text-gray-700  transition-all',
-                                    'hover:bg-primaryHover hover:text-white active:bg-primaryActive active:text-white',
+                                    'w-full rounded-r-3xl rounded-l-lg py-2.5 text-sm font-semibold leading-5 text-gray-700 dark:text-gray-300 transition-all',
+                                    'hover:bg-primaryHover hover:text-white active:bg-primaryActive active:text-white dark:hover:bg-DarkBtnHover dark:active:bg-DarkBtnActive',
                                     selected
-                                        ? 'bg-primary text-white shadow'
+                                        ? 'bg-primary dark:bg-DarkBtn text-white shadow'
                                         : 'text-gray-400'
                                 )
                             }
