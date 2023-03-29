@@ -9,20 +9,33 @@ import Loading from './Loading';
 
 export default function Dropdown() {
     const { user, setUser, ready } = useUserContext();
+    const [values, setValues] = useState(null);
     const [avatarComponent, setAvatarComponent] = useState(null);
 
     useEffect(() => {
+        if (!ready || !user) return
+        if (!user.avatar) return;
+
+        setTimeout(() => {
+            setValues({
+                avatar: user.avatar
+            });
+        }, 100);
+    }, [ready]);
+
+    useEffect(() => {
         if (!user) return;
-        //console.log('Dropdown Mounted');
+        if (!ready || (user.hasOwnProperty('avatar') && user.avatar === undefined)) return setAvatarComponent(null);
 
-        setAvatarComponent(
-            <Avatar
-                style={{ width: '48px', height: '48px' }}
-                avatarStyle="Circle"
-                {...user.avatar}
-            />
-        );
-
+        setTimeout(() => {
+            setAvatarComponent(
+                <Avatar
+                    style={{ width: '48px', height: '48px' }}
+                    avatarStyle="Circle"
+                    {...user.avatar}
+                />
+            );
+        }, 100);
     }, [user]);
 
     async function logoutHandler(e) {
@@ -65,7 +78,7 @@ export default function Dropdown() {
                             <Icon icon="profileIcon" />
                         </div>
                     )}
-                    <div className="px-2 max-lg:hidden font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-x-2">
+                    <div className="overflow-hidden px-2 max-xl:hidden font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-x-2">
                         <div>{user && user.name}</div>
                         <Icon icon="chevronDownIcon" />
                     </div>

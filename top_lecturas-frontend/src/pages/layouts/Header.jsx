@@ -11,8 +11,8 @@ export function Header() {
     const [colorTheme, setTheme] = useDarkMode();
 
     return (
-        <header className="py-4 px-8 border-b bg-white dark:bg-zinc-800 dark:border-b-zinc-900 shadow-md sticky top-0 z-50">
-            <div className="flex justify-between items-center mx-auto max-w-7xl">
+        <header className="py-4 px-8 max-lg:px-4 border-b bg-white dark:bg-zinc-800 dark:border-b-zinc-900 shadow-md sticky top-0 z-50">
+            <div className="flex justify-between items-center mx-auto max-w-7xl max-md:gap-2">
                 <div className="flex min-w-fit w-64 justify-start">
                     <Link
                         to={'/'}
@@ -24,8 +24,8 @@ export function Header() {
                         </span>
                     </Link>
                 </div>
-                <div className="flex grow">
-                    <div className="flex items-center gap-2 mx-auto w-max max-sm:hidden">
+                <div className="flex grow justify-center">
+                    <div className="flex items-center gap-2 mx-auto w-max max-md:hidden">
                         <div className="mx-2 max-lg:mx-0 font-bold">
                             <Link
                                 to={'/start'}
@@ -54,7 +54,7 @@ export function Header() {
                             </Link>
                         </div>
                     </div>
-                    <div className="sm:hidden">
+                    <div className="md:hidden">
                         <Menu
                             as="div"
                             className="inline-block text-left"
@@ -127,7 +127,7 @@ export function Header() {
                         </Menu>
                     </div>
                 </div>
-                <div className="flex min-w-fit w-64 justify-end">
+                <div className="flex min-w-fit w-64 justify-end gap-2">
                     <div className="flex items-center justify-center max-md:hidden">
                         <DarkMode />
                     </div>

@@ -16,7 +16,7 @@ export default function DarkMode() {
     };
 
     return (
-        <div className="flex items-center justify-center mr-6 max-md:mr-0">
+        <div className="flex items-center justify-center mx-4">
             <DarkModeSwitch
                 checked={darkMode}
                 onChange={toggleDarkMode}

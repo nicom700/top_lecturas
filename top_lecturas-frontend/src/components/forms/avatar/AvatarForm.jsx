@@ -16,6 +16,7 @@ export default function AvatarForm() {
     const [updateUser, setUpdateUser] = useState(false);
 
     const [disabledBtn, setDisabledBtn] = useState(false);
+    const [disabledRandomBtn, setDisabledRandomBtn] = useState(false);
     const [error, setError] = useState(null);
 
     const [avatarComponent, setAvatarComponent] = useState(null);
@@ -28,7 +29,6 @@ export default function AvatarForm() {
     const formRef = useRef();
 
     useEffect(() => {
-        
         if (!selectInputs || !values) {
             //console.log('useEffect_1_loadValues');
             setTimeout(() => {
@@ -36,7 +36,7 @@ export default function AvatarForm() {
                 setValues(user.avatar);
             }, 100);
         }
-        
+
         if (!updateAvatarState) return;
         //console.log('useEffect_1');
 
@@ -59,6 +59,7 @@ export default function AvatarForm() {
                     {...values}
                 />
             );
+            setDisabledRandomBtn(false);
         }, 100);
     }, [values]);
 
@@ -70,33 +71,36 @@ export default function AvatarForm() {
             let data = {};
             const formData = new FormData(formRef.current);
             formData.forEach((value, key) => (data[key] = value));
-    
+
             return await AuthService.updateAvatar(data)
                 .then((res) => {
-                    //console.log('res:', res);    
+                    if(Object.entries(res).length === 0) throw new Error('No se pudo guardar.');
                     updateAvatar(res.avatar);
                     setUpdateUser(false);
-                    toast.success('Guardado.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
+                    setDisabledBtn(false);
+                    toast.success('Guardado.', { className: 'dark:text-gray-300 dark:bg-zinc-700',});
                     return res;
                 })
                 .catch((error) => {
                     setError(error.message);
-                    toast.error('Algo salió mal.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
+                    setDisabledBtn(false);
+                    toast.error('Algo salió mal.', { className: 'dark:text-gray-300 dark:bg-zinc-700',});
                 });
         }
-    
-        saveAvatar();
 
+        saveAvatar();
     }, [updateUser]);
 
     function handleSaveSubmit(e) {
         e.preventDefault();
         setUpdateUser(true);
+        setDisabledBtn(true);
     }
 
     function handleRandom(e) {
         e.preventDefault();
         setUpdateAvatarState('random');
+        setDisabledRandomBtn(true);
 
         let newRandomOptions = generateRandomAvatarOptions();
         setRandomOptions(newRandomOptions);
@@ -155,13 +159,17 @@ export default function AvatarForm() {
                                 )}
                             </div>
                         </div>
-                        <Button
-                            type="submit"
-                            name="random"
-                            value="Aleatorio"
-                            onClick={handleRandom}
-                            disabled={disabledBtn}
-                        />
+                        {values && selectInputs ? (
+                            <Button
+                                type="submit"
+                                name="random"
+                                value="Aleatorio"
+                                onClick={handleRandom}
+                                disabled={disabledRandomBtn}
+                            />
+                        ) : (
+                            <Loading />
+                        )}
                     </div>
                 </div>
                 <div className="w-full h-full">
@@ -330,7 +338,12 @@ export default function AvatarForm() {
             </div>
             <div className="grid grid-cols-4 grid-rows-1 grid-flow-row-dense gap-6 max-lg:flex max-lg:flex-col">
                 <div className="col-start-4 flex gap-2">
-                    <Button type="submit" name="save" value="Guardar" />
+                    <Button
+                        type="submit"
+                        name="save"
+                        value="Guardar"
+                        disabled={disabledBtn}
+                    />
                     <Button
                         type="button"
                         name="cancel"

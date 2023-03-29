@@ -33,6 +33,8 @@ export default function ProfileForm() {
 
     useEffect(() => {
         if (!ready) return;
+        if (!user.name || !user.email || !user.avatar) return;
+
         setTimeout(() => {
             setValues({
                 name: user.name,
@@ -45,7 +47,7 @@ export default function ProfileForm() {
     }, [ready]);
 
     useEffect(() => {
-        if (!user.avatar) return setAvatarComponent(null);
+        if (!ready || !user.avatar) return setAvatarComponent(null);
 
         setTimeout(() => {
             setAvatarComponent(
@@ -77,19 +79,10 @@ export default function ProfileForm() {
         //console.log('fechingDataProfile:', data);
         await AuthService.updateUser(data)
             .then((res) => {
+                if(Object.entries(res).length === 0) throw new Error('No se pudo guardar.');
                 setUser(res);
-                //console.log('res', res);
                 setDisabledBtn(false);
                 toast.success('Guardado.', {className: 'dark:text-gray-300 dark:bg-zinc-700'});
-                /* toast.custom((t) => (
-                    <div
-                        className={`text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-700 px-6 py-4 shadow-md rounded-xl ${
-                            t.visible ? 'animate-enter' : 'animate-leave'
-                        }`}
-                    >
-                        {icon} Guardado. 😉
-                    </div>
-                )); */
             })
             .catch((error) => {
                 setError(error.message);

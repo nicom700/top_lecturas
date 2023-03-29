@@ -27,9 +27,9 @@ const getPreviousYearMonth = () => {
 
     if (currentDate.getMonth() === 0) {
         currentDate.setFullYear(currentDate.getFullYear() - 1);
-        currentDate.setMonth(11);
+        currentDate.setMonth(10);
     } else {
-        currentDate.setMonth(currentDate.getMonth() - 1);
+        currentDate.setMonth(currentDate.getMonth() - 2);
     }
 
     const year = currentDate.getFullYear();
