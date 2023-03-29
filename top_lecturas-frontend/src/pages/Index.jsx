@@ -11,7 +11,7 @@ export default function Index() {
     }
 
     return (
-        <div className="my-12 grow flex items-center justify-around">
+        <div className="my-12 grow flex items-center justify-around bg-[url('/src/assets/logo.svg')] bg-no-repeat bg-center ">
             <div className="max-w-sm mb-12 text-gray-700">
                 <TitleH1 text="Top Lecturas" />
                 <p className="my-5">Pagina de inicio</p>

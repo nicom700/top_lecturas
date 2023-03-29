@@ -15,7 +15,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="my-12 grow flex items-center justify-around">
+        <div className="my-12 grow flex items-center justify-around ">
             <div className="max-w-sm mb-12 text-gray-700">
                 <TitleH1 text="Dashboard" />
                 <p className="my-5">Bienvenido {user.name}</p>
