@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { userContext } from 'src/userContext';
+import { useUserContext } from 'src/context/UserContext';
 import GameService from 'src/services/game';
 import Button from 'src/components/forms/Button';
 import Loading from 'src/components/Loading';
 import TitleH1 from 'src/components/TitleH1';
 
 export default function Start() {
-    const { user, ready } = userContext();
+    const { user, ready } = useUserContext();
     const [disabledBtn, setDisabledBtn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('');
@@ -88,7 +88,7 @@ export default function Start() {
         return (
             <div className="my-12 grow flex flex-col items-center">
                 <TitleH1 text="Algo salio mal 😖" />
-                <p className="mb-4 text-2xl text-center">{error}</p>
+                <p className="mb-4 text-2xl text-center text-gray-700 dark:text-gray-300">{error}</p>
             </div>
         );
     }
@@ -100,7 +100,7 @@ export default function Start() {
                     <TitleH1 text="Muy Bien, sigue asi 😁" />
                     <Loading />
                 </div>
-                <div className="m-4 text-3xl flex gap-8 justify-evenly">
+                <div className="m-4 text-3xl flex gap-8 justify-evenly text-gray-700 dark:text-gray-300">
                     <div>Racha actual: {lastWinStreak}</div>
                     <div>Tu mejor racha: {totalWinStreaks}</div>
                     <div>Puntos totales: {totalPoints}</div>
@@ -112,8 +112,8 @@ export default function Start() {
     if (status === 'gameOver') {
         return (
             <div className="my-12 grow flex flex-col items-center">
-                <div className="max-w-md w-full bg-white p-6 shadow-md rounded-xl">
-                    <p className="mb-4 text-2xl text-center">
+                <div className="max-w-md w-full bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
+                    <p className="mb-4 text-2xl text-center text-gray-700 dark:text-gray-300">
                         Juego terminado: Perdiste
                     </p>
                     <Button
@@ -159,7 +159,7 @@ export default function Start() {
                     </div>
                 ))}
             </div>
-            <div className="m-4 text-3xl flex gap-8 justify-evenly">
+            <div className="m-4 text-3xl flex gap-8 justify-evenly text-gray-700 dark:text-gray-300">
                 <div>Racha actual: {lastWinStreak}</div>
                 <div>Tu mejor racha: {totalWinStreaks}</div>
                 <div>Puntos totales: {totalPoints}</div>

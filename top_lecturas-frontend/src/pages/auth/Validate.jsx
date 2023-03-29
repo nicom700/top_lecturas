@@ -33,3 +33,16 @@ export function validatePasswordConfirmation(password, passwordConfirmation) {
 
     return false;
 }
+
+export function validateForUpdatePassword(password, passwordConfirmation) {
+    if (!password && !passwordConfirmation)
+        return false;
+
+    if (!password && passwordConfirmation || password && !passwordConfirmation)
+        return ['* El campo Contraseña debe ser igual al campo Repetir contraseña'];
+
+    if (password !== passwordConfirmation)
+        return ['* Las contraseñas no coinciden'];
+
+    return false;
+}

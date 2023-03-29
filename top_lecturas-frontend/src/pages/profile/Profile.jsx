@@ -1,52 +1,66 @@
-import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { userContext } from 'src/userContext.jsx';
-import AuthService from 'src/services/auth';
+import { useUserContext } from 'src/context/UserContext';
+import { Tab } from '@headlessui/react';
 import Loading from 'src/components/Loading';
-import Button from 'src/components/forms/Button';
+import AvatarForm from 'src/components/forms/avatar/AvatarForm';
+import ProfileForm from 'src/components/forms/avatar/ProfileForm';
 
 export default function Profile() {
-    const { user, setUser, ready } = userContext();
-    const [redirect, setRedirect] = useState(null);
+    const { user, ready } = useUserContext();
 
-    async function logoutHandler() {
-        AuthService.logout();
-        setUser(null);
-        setRedirect('/');
+    function classNames(...classes) {
+        return classes.filter(Boolean).join(' ');
     }
 
     if (!ready) {
         return <Loading />;
     }
 
-    if (ready && !user && !redirect) {
+    if (ready && !user) {
         return <Navigate to={'/login'} />;
     }
 
-    if (redirect) {
-        return <Navigate to={redirect} />;
-    }
-
     return (
-        <div className="my-12 grow flex flex-col items-center">
-            <div className="max-w-md w-full bg-white p-6 shadow-md rounded-xl">
-                <div className="mb-4">
-                    <p>
-                        <strong>Id:</strong> {user._id}
-                    </p>
-                    <p>
-                        <strong>Name:</strong> {user.name}
-                    </p>
-                    <p>
-                        <strong>Email:</strong> {user.email}
-                    </p>
-                </div>
-                <Button
-                    type="submit"
-                    name="logout"
-                    value="Cerrar sesión"
-                    onClick={logoutHandler}
-                />
+        <div className="my-8 max-md:px-2 px-8 w-full flex flex-col items-center">
+            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
+                <Tab.Group>
+                    <Tab.List className="flex space-x-1 border border-gray-300 dark:border-transparent rounded-full bg-slate-100 dark:bg-bgDarkSecondary p-2 w-64 m-auto">
+                        <Tab
+                            className={({ selected }) =>
+                                classNames(
+                                    'w-full rounded-l-3xl rounded-r-lg py-2.5 text-sm font-semibold leading-5 text-gray-700 dark:text-gray-300 transition-all',
+                                    'hover:bg-primaryHover hover:text-white active:bg-primaryActive active:text-white dark:hover:bg-DarkBtnHover dark:active:bg-DarkBtnActive',
+                                    selected
+                                        ? 'bg-primary dark:bg-DarkBtn text-white shadow'
+                                        : 'text-gray-400'
+                                )
+                            }
+                        >
+                            Perfil
+                        </Tab>
+                        <Tab
+                            className={({ selected }) =>
+                                classNames(
+                                    'w-full rounded-r-3xl rounded-l-lg py-2.5 text-sm font-semibold leading-5 text-gray-700 dark:text-gray-300 transition-all',
+                                    'hover:bg-primaryHover hover:text-white active:bg-primaryActive active:text-white dark:hover:bg-DarkBtnHover dark:active:bg-DarkBtnActive',
+                                    selected
+                                        ? 'bg-primary dark:bg-DarkBtn text-white shadow'
+                                        : 'text-gray-400'
+                                )
+                            }
+                        >
+                            Avatar
+                        </Tab>
+                    </Tab.List>
+                    <Tab.Panels>
+                        <Tab.Panel>
+                            <ProfileForm />
+                        </Tab.Panel>
+                        <Tab.Panel>
+                            <AvatarForm />
+                        </Tab.Panel>
+                    </Tab.Panels>
+                </Tab.Group>
             </div>
         </div>
     );

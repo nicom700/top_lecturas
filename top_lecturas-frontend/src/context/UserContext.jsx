@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import AuthService from './services/auth';
+import AuthService from 'src/services/auth';
 
 const UserContext = createContext(undefined);
 
@@ -10,11 +10,11 @@ export const UserContextProvider = ({ children }) => {
     useEffect(() => {
         AuthService.getCurrentUser()
             .then((profile) => {
-                //console.log('profileInUserContext:', profile);
                 setUser({
                     _id: profile._id,
                     name: profile.name,
                     email: profile.email,
+                    avatar: profile.avatar,
                 });
             })
             .catch((error) => {
@@ -25,18 +25,27 @@ export const UserContextProvider = ({ children }) => {
             });
     }, []);
 
+    function updateAvatar(avatar){
+        setUser({
+            ...user,
+            avatar: avatar
+        });
+    }
+
     return (
-        <UserContext.Provider value={{ user, setUser, ready }}>
+        <UserContext.Provider value={{ ready, user, setUser, updateAvatar }}>
             {children}
         </UserContext.Provider>
     );
 };
 
-export const userContext = () => {
+export const useUserContext = () => {
     const userContext = useContext(UserContext);
 
     if (userContext === undefined) {
-        throw Error('Error: userContext is undefined');
+        throw new Error(
+            'useUserContext must be used within a UserContextProvider'
+        );
     }
 
     return userContext;

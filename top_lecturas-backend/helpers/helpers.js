@@ -27,9 +27,9 @@ const getPreviousYearMonth = () => {
 
     if (currentDate.getMonth() === 0) {
         currentDate.setFullYear(currentDate.getFullYear() - 1);
-        currentDate.setMonth(11);
+        currentDate.setMonth(10);
     } else {
-        currentDate.setMonth(currentDate.getMonth() - 1);
+        currentDate.setMonth(currentDate.getMonth() - 2);
     }
 
     const year = currentDate.getFullYear();
@@ -39,8 +39,18 @@ const getPreviousYearMonth = () => {
 }
 
 const validateEmail = (email) => {
-    const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const reg = /^(?:(?:[\w`~!#$%^&*\-=+;:{}'|,?\/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?\/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?\/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)+"))@(?:[a-zA-Z\d\-]+(?:\.[a-zA-Z\d\-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])$/gm;
     return reg.test(email);
+}
+
+const validateUsername = (username) => {
+    const reg = /(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$/;
+    return reg.test(username);
+}
+
+const validatePassword = (password) => {
+    const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+    return reg.test(password);
 }
 
 const helper = {
@@ -48,6 +58,8 @@ const helper = {
     getCorrectAnswer,
     getPreviousYearMonth,
     validateEmail,
+    validateUsername,
+    validatePassword
 };
 
 export default helper;

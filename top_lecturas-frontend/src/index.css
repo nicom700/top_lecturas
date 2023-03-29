@@ -5,7 +5,25 @@
 body {
     background-color: #f5f5ff70;
     opacity: 1;
-    background-image: radial-gradient(#8651e736 2px, transparent 2px), radial-gradient(#8651e736 2px, #bbbbbb10 2px);
+    background-image: radial-gradient(#8651e736 2px, transparent 2px), radial-gradient(#ded2f8 2px, #d3c7e915 2px);
     background-size: 80px 80px;
     background-position: 0 0, 40px 40px;
+}
+.dark body {
+    background-color: #0e0e10;
+    opacity: 1;
+    background-image: radial-gradient(#8651e736 2px, transparent 2px), radial-gradient(#34284c 2px, #f1f5f910 2px);
+    background-size: 80px 80px;
+    background-position: 0 0, 40px 40px;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus,
+.dark select:-webkit-autofill,
+.dark select:-webkit-autofill:hover,
+.dark select:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
