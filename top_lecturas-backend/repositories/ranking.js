@@ -43,3 +43,12 @@ export const addPointInRankingRepository = async (ranking) => {
         throw new Error('No se pudo incrementar la puntuación del jugador');
     }
 }
+
+export const getAllRankingsRepository = async () => {
+    try {
+        return await Ranking.find().populate('user_id','name'); // 'user_id' de la tabla Ranking. 'name' de la tabla User        
+        // return await Ranking.find().populate({path: 'user_id', alias: 'user', select: 'name' });
+    } catch (error) {
+        return { error: 'No se pudo obtener los rankings' };
+    }
+}
