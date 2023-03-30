@@ -3,13 +3,24 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        min: 3,
+        max: 24
+    },
     email: {
         type: String,
         required: true,
+        min: 6,
+        max: 1024,
         unique: true
     },
-    password: String,
+    password: {
+        type: String,
+        required: true,
+        minlength: 8
+    },
     avatar: Object,
 });
 

@@ -16,17 +16,9 @@ export const login = async (req, res) => {
         if (user && bcrypt.compareSync(password, user.password)) {
 
             const userData = { _id: user._id, name: user.name, email: user.email, avatar: user.avatar };
+            const token = jwt.sign(userData, config.JWT_SECRET_KEY, { expiresIn: 604800 });
 
-            jwt.sign(userData, config.JWT_SECRET_KEY, { expiresIn: 604800 },
-                (err, token) => {
-                    if (err) throw err;
-                    res.cookie('token', token, {
-                        secure: false,
-                        httpOnly: true,
-                        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                    }).json(userData);
-                }
-            );
+            res.header('auth-token', token).json({ user: userData, token });
 
         } else {
             res.status(403).json({ error: 'El email o la contraseña no son correctas.' });
@@ -35,7 +27,7 @@ export const login = async (req, res) => {
     } catch (error) {
         res.status(403).json(error);
     }
-};
+}
 
 export const register = async (req, res) => {
     try {
@@ -74,24 +66,24 @@ export const register = async (req, res) => {
         });
 
         if (user.error) return res.status(403).json({ error: user.error });
-        if (user) return res.status(200).json({ _id: user._id, name: user.name, email: user.email });
+
+        if (user) {
+            const userData = { _id: user._id, name: user.name, email: user.email, avatar: user.avatar };
+            const token = jwt.sign(userData, config.JWT_SECRET_KEY, { expiresIn: 604800 });
+    
+            res.header('auth-token', token).json({ user: userData, token });
+        }
 
     } catch (error) {
         res.status(403).json(error);
     }
-};
+}
 
 export const profile = async (req, res) => {
     const { user } = req;
     const { _id, name, email, avatar } = await findByIdRepository(user);
 
     return res.json({ _id, name, email, avatar });
-};
-
-export const logout = async (req, res) => {
-    res.clearCookie('token');
-
-    return res.status(200).send({ msg: 'Logout!' });
 }
 
 export const updateUser = async (req, res) => {

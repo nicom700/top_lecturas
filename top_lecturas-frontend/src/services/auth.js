@@ -7,9 +7,11 @@ const loginUser = (user) => {
         credentials: 'include',
         body: JSON.stringify(user)
     }).then(res => {
-        return res.json();
+        const user = res.json();
+        return user;
     }).then(data => {
         if (data.error) throw new Error(data.error);
+        localStorage.setItem('auth-token', data.token);
         return data;
     }).catch(error => {
         if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
@@ -28,6 +30,7 @@ const registerUser = (user) => {
         return res.json();
     }).then(data => {
         if (data.error) throw new Error(data.error);
+        localStorage.setItem('auth-token', data.token);
         return data;
     }).catch(error => {
         if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
@@ -35,16 +38,13 @@ const registerUser = (user) => {
     });
 }
 
-const logout = () => {
-    return fetch(import.meta.env.VITE_BACKEND_URL + '/logout', {
-        method: 'GET',
-        credentials: 'include',
-    });
-}
-
 const getCurrentUser = () => {
     return fetch(import.meta.env.VITE_BACKEND_URL + '/profile', {
         method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
+        },
         credentials: 'include',
     }).then(res => {
         return res.json();
@@ -61,7 +61,8 @@ const updateUser = (user) => {
     return fetch(import.meta.env.VITE_BACKEND_URL + '/user/edit', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
         },
         credentials: 'include',
         body: JSON.stringify(user)
@@ -80,7 +81,8 @@ const updateAvatar = (avatar) => {
     return fetch(import.meta.env.VITE_BACKEND_URL + '/user/avatar', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
         },
         credentials: 'include',
         body: JSON.stringify(avatar)
@@ -98,7 +100,6 @@ const updateAvatar = (avatar) => {
 const AuthService = {
     loginUser,
     registerUser,
-    logout,
     getCurrentUser,
     updateUser,
     updateAvatar,
