@@ -1,6 +1,7 @@
 import { getGameByUserRepository, createGameRepository, updateGameRepository } from '../repositories/playing.js';
 import { getRankingByUserRepository, createRankingByUserRepository, resetWinStreakRepository } from '../repositories/ranking.js';
 import helper from '../helpers/helpers.js';
+import fetch from 'node-fetch';
 
 export const startGame = async (req, res, next) => {
     try {
