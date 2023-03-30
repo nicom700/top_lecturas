@@ -1,5 +1,5 @@
 const loginUser = (user) => {
-    return fetch('http://localhost:3000/api/login', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ const loginUser = (user) => {
 }
 
 const registerUser = (user) => {
-    return fetch('http://localhost:3000/api/register', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -36,14 +36,14 @@ const registerUser = (user) => {
 }
 
 const logout = () => {
-    return fetch('http://localhost:3000/api/logout', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/logout', {
         method: 'GET',
         credentials: 'include',
     });
 }
 
 const getCurrentUser = () => {
-    return fetch('http://localhost:3000/api/profile', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/profile', {
         method: 'GET',
         credentials: 'include',
     }).then(res => {
@@ -58,7 +58,7 @@ const getCurrentUser = () => {
 }
 
 const updateUser = (user) => {
-    return fetch('http://localhost:3000/api/user/edit', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/user/edit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ const updateUser = (user) => {
 }
 
 const updateAvatar = (avatar) => {
-    return fetch('http://localhost:3000/api/user/avatar', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/user/avatar', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
