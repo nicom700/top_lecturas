@@ -159,7 +159,7 @@ export default function Start() {
                     </div>
                 ))}
             </div>
-            <div className="m-4 text-3xl flex gap-8 justify-evenly text-gray-700 dark:text-gray-300">
+            <div className="m-4 text-3xl flex gap-10 justify-evenly text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                 <div>Racha actual: {lastWinStreak}</div>
                 <div>Tu mejor racha: {totalWinStreaks}</div>
                 <div>Puntos totales: {totalPoints}</div>
