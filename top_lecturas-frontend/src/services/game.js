@@ -1,8 +1,9 @@
 const getArticles = () => {
-    return fetch('http://localhost:3000/api/game/start', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/game/start', {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
         },
         credentials: 'include'
     }).then(res => {
@@ -17,10 +18,11 @@ const getArticles = () => {
 }
 
 const sendOption = (article) => {
-    return fetch('http://localhost:3000/api/game/continue', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/game/continue', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
         },
         credentials: 'include',
         body: JSON.stringify(article)

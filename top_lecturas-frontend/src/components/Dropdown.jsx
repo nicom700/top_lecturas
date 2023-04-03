@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useUserContext } from 'src/context/UserContext';
 import { Menu, Transition } from '@headlessui/react';
-import AuthService from 'src/services/auth';
 import Avatar from 'avataaars';
 import Icon from './Icon';
 import Loading from './Loading';
@@ -40,8 +39,8 @@ export default function Dropdown() {
 
     async function logoutHandler(e) {
         e.preventDefault();
-        AuthService.logout();
         setUser(null);
+        localStorage.removeItem('auth-token');
         return <Navigate to={'/'} />;
     }
 

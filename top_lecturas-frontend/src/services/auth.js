@@ -1,5 +1,5 @@
 const loginUser = (user) => {
-    return fetch('http://localhost:3000/api/login', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -7,9 +7,11 @@ const loginUser = (user) => {
         credentials: 'include',
         body: JSON.stringify(user)
     }).then(res => {
-        return res.json();
+        const user = res.json();
+        return user;
     }).then(data => {
         if (data.error) throw new Error(data.error);
+        localStorage.setItem('auth-token', data.token);
         return data;
     }).catch(error => {
         if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
@@ -18,7 +20,7 @@ const loginUser = (user) => {
 }
 
 const registerUser = (user) => {
-    return fetch('http://localhost:3000/api/register', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -28,6 +30,7 @@ const registerUser = (user) => {
         return res.json();
     }).then(data => {
         if (data.error) throw new Error(data.error);
+        localStorage.setItem('auth-token', data.token);
         return data;
     }).catch(error => {
         if (error.message === 'Failed to fetch') throw new Error('Error fetching data');
@@ -35,16 +38,13 @@ const registerUser = (user) => {
     });
 }
 
-const logout = () => {
-    return fetch('http://localhost:3000/api/logout', {
-        method: 'GET',
-        credentials: 'include',
-    });
-}
-
 const getCurrentUser = () => {
-    return fetch('http://localhost:3000/api/profile', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/profile', {
         method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
+        },
         credentials: 'include',
     }).then(res => {
         return res.json();
@@ -58,10 +58,11 @@ const getCurrentUser = () => {
 }
 
 const updateUser = (user) => {
-    return fetch('http://localhost:3000/api/user/edit', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/user/edit', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
         },
         credentials: 'include',
         body: JSON.stringify(user)
@@ -77,10 +78,11 @@ const updateUser = (user) => {
 }
 
 const updateAvatar = (avatar) => {
-    return fetch('http://localhost:3000/api/user/avatar', {
+    return fetch(import.meta.env.VITE_BACKEND_URL + '/user/avatar', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('auth-token')
         },
         credentials: 'include',
         body: JSON.stringify(avatar)
@@ -98,7 +100,6 @@ const updateAvatar = (avatar) => {
 const AuthService = {
     loginUser,
     registerUser,
-    logout,
     getCurrentUser,
     updateUser,
     updateAvatar,

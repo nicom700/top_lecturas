@@ -1,17 +1,19 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
+import bodyparser from 'body-parser';
 import config from './config.js';
 import apiRoutes from './routes/index.js';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 const app = express();
-app.use(express.json());
-app.use(cookieParser());
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
+
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: config.CLIENT_URL,
     credentials: true,
+    optionsSuccessStatus: 200
 }));
 
 app.use('/api', apiRoutes);
@@ -19,7 +21,10 @@ app.use(errorMiddleware);
 
 mongoose.set('strictQuery', false);
 
-mongoose.connect(config.MONGO_STRING).then(() => {
+mongoose.connect(config.MONGO_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
 
     console.log('----------------------------------------------------------------');
     console.log('Conectado a MongoDB');

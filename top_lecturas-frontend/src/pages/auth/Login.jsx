@@ -38,7 +38,7 @@ export default function Login() {
 
         await AuthService.loginUser(data)
             .then((data) => {
-                setUser(data);
+                setUser(data.user);
                 setRedirect(true);
             })
             .catch((error) => {

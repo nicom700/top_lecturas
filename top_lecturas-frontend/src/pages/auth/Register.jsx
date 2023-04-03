@@ -57,7 +57,7 @@ export default function Register() {
             .then(async () => {
                 return await AuthService.loginUser(data)
                     .then((data) => {
-                        setUser(data);
+                        setUser(data.user);
                         setRedirect(true);
                     })
                     .catch((error) => {
