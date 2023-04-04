@@ -144,7 +144,7 @@ export default function Start() {
                             <Button
                                 type="submit"
                                 name={item.id}
-                                value={item.article.replaceAll('_', ' ')}
+                                value={item.article.replace(/_/g, ' ')}
                                 disabled={disabledBtn}
                                 onClick={handleArticleSubmit}
                             />

@@ -6,7 +6,7 @@ export const continueGame = async (req, res, next) => {
     try {
         const { user } = req;
         let { article: answeredArticle } = req.body;
-        answeredArticle = answeredArticle.replaceAll(' ', '_');
+        answeredArticle = answeredArticle.replace(/ /g, '_');
 
         let currentGamePlaying = await getGameByUserRepository(user);
         if (!currentGamePlaying) return res.status(500).send({ error: 'No se encontro partida.' });
