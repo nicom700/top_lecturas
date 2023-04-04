@@ -21,6 +21,8 @@ export default function DarkMode() {
                 checked={darkMode}
                 onChange={toggleDarkMode}
                 size={24}
+                moonColor={'#d1d5db'}
+                sunColor={'#374151'}
             />
         </div>
     );

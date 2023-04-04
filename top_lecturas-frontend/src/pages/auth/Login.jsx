@@ -103,7 +103,7 @@ export default function Login() {
     return (
         <div className="my-8 grow flex flex-col items-center justify-around">
             <div className="w-full max-w-4xl max-lg:flex-col max-lg:gap-8 max-md:px-2 max-lg:px-8 mb-12 flex justify-between items-center">
-                <div>
+                <div className="text-primary dark:text-primaryDark">
                     <Logo
                         className={'w-80 h-80 max-lg:w-48 max-lg:h-48 m-auto'}
                     />
