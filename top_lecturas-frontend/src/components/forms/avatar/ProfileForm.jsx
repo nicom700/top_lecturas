@@ -52,7 +52,7 @@ export default function ProfileForm() {
         setTimeout(() => {
             setAvatarComponent(
                 <Avatar
-                    style={{ width: '250px', height: '250px' }}
+                    style={{ width: '100%', height: '100%' }}
                     avatarStyle="Circle"
                     {...user.avatar}
                 />
@@ -171,9 +171,9 @@ export default function ProfileForm() {
                 </div>
             </div>
             <div className="mb-4 flex justify-center gap-6 max-lg:flex-col">
-                <div className="w-[290px] h-[290px] flex flex-col items-center gap-2 m-auto">
+                <div className="w-[290px] max-sm:w-52 flex flex-col items-center gap-2 mx-auto">
                     <div className="p-4 flex items-center justify-center border border-gray-300 dark:border-zinc-600 rounded-xl">
-                        <div className="w-64 h-64">
+                        <div className="w-64 h-64 max-sm:w-48 max-sm:h-48">
                             {avatarComponent ? avatarComponent : <Loading />}
                         </div>
                     </div>
