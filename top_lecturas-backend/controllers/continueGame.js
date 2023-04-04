@@ -5,7 +5,8 @@ import helper from '../helpers/helpers.js';
 export const continueGame = async (req, res, next) => {
     try {
         const { user } = req;
-        const { article: answeredArticle } = req.body;
+        let { article: answeredArticle } = req.body;
+        answeredArticle = answeredArticle.replaceAll(' ', '_');
 
         let currentGamePlaying = await getGameByUserRepository(user);
         if (!currentGamePlaying) return res.status(500).send({ error: 'No se encontro partida.' });

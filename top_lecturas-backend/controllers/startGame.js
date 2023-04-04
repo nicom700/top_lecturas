@@ -49,7 +49,8 @@ const getImgArticle = async (apiUrl, article) => {
     return await fetch(apiUrl + article)
         .then(res => res.json())
         .then((data) => {
-            const imgUrl = ((Array.isArray(data.items) && data.items.length !== 0) && data.items[0].hasOwnProperty('srcset')) ? data.items[0].srcset[data.items[0].srcset.length - 1] : null;
+            //const imgUrl = ((Array.isArray(data.items) && data.items.length !== 0) && data.items[0].hasOwnProperty('srcset')) ? data.items[0].srcset[data.items[0].srcset.length - 1] : null; //large
+            const imgUrl = ((Array.isArray(data.items) && data.items.length !== 0) && data.items[0].hasOwnProperty('srcset')) ? data.items[0].srcset[0] : null; //small
             if (!imgUrl) return 'No hay imagen';
             return 'https:' + imgUrl.src;
         });
