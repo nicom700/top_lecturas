@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-
 import Layout from 'src/pages/layouts/Layout';
 import NotFound from 'src/pages/NotFound';
 import Index from 'src/pages/Index';
@@ -7,6 +6,7 @@ import Login from 'src/pages/auth/Login';
 import Register from 'src/pages/auth/Register';
 import Profile from 'src/pages/profile/Profile';
 import Start from 'src/pages/game/Start';
+import Ranking from 'src/pages/Ranking';
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +36,11 @@ export const router = createBrowserRouter([
                 path: '/start',
                 element: <Start />,
             },
+            {
+                path: '/ranking',
+                element: <Ranking />
+            }
+            
         ],
     },
 ]);
