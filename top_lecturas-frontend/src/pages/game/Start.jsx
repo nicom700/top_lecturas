@@ -129,22 +129,22 @@ export default function Start() {
     }
 
     return (
-        <div className="my-8 w-full grow flex flex-col items-center justify-around">
-            <div className="max-w-7xl w-full flex gap-4 justify-around">
+        <div className="my-4 max-md:px-2 px-8 w-full grow flex flex-col items-center justify-around">
+            <TitleH1 text="¿Sabes cuál tiene más visitas?" />
+            <div className="grow max-w-2xl max-lg:w-2xl w-full flex gap-4 justify-around">
                 {!articles && <Loading />}
                 {articles && articles.map((item) => (
                     <div key={item.id} className="w-2/4">
                         <form>
-                            <input
-                                type="hidden"
-                                name="option"
-                                value={item.article}
-                                readOnly
-                            />
+                            <div className="rounded h-64 p-4 bg-white dark:bg-zinc-800 shadow-md mb-4">
+                                <div className="overflow-hidden w-full h-full flex items-center justify-center bg-white border border-gray-300 dark:border-zinc-600">
+                                    <img src={item.url} className="" />
+                                </div>
+                            </div>
                             <Button
                                 type="submit"
                                 name={item.id}
-                                value={item.article}
+                                value={item.article.replace(/_/g, ' ')}
                                 disabled={disabledBtn}
                                 onClick={handleArticleSubmit}
                             />
@@ -152,7 +152,7 @@ export default function Start() {
                     </div>
                 ))}
             </div>
-            <div className="m-4 text-3xl flex gap-8 justify-evenly text-gray-700 dark:text-gray-300">
+            <div className="mt-4 text-3xl flex gap-10 justify-evenly text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                 <div>Racha actual: {lastWinStreak}</div>
                 <div>Tu mejor racha: {totalWinStreaks}</div>
                 <div>Puntos totales: {totalPoints}</div>

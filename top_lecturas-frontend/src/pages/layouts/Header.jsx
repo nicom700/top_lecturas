@@ -11,7 +11,7 @@ export function Header() {
     const [colorTheme, setTheme] = useDarkMode();
 
     return (
-        <header className="py-4 px-8 max-lg:px-4 border-b bg-white dark:bg-zinc-800 dark:border-b-zinc-900 shadow-md sticky top-0 z-50">
+        <header className="backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 dark:bg-opacity-80 border border-white/80 dark:border-zinc-800/80 text-white py-4 px-8 max-lg:px-4 bg-white dark:bg-zinc-800 dark:border-b-zinc-900 shadow-md sticky top-0 z-50">
             <div className="flex justify-between items-center mx-auto max-w-7xl max-md:gap-2">
                 <div className="flex min-w-fit w-64 justify-start">
                     <Link

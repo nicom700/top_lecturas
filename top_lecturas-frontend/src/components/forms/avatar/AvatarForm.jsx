@@ -54,7 +54,7 @@ export default function AvatarForm() {
         setTimeout(() => {
             setAvatarComponent(
                 <Avatar
-                    style={{ width: '250px', height: '250px' }}
+                    style={{ width: '100%', height: '100%' }}
                     avatarStyle="Circle"
                     {...values}
                 />
@@ -147,30 +147,28 @@ export default function AvatarForm() {
                     {error && <ErrorMsg type="background" msg={error} />}
                 </div>
             </div>
-            <div className="mb-4 flex gap-6 max-lg:flex-col">
-                <div className="flex flex-col items-center gap-2">
-                    <div className="flex flex-col w-[290px] h-[290px] max-lg:h-full gap-4">
-                        <div className="w-full p-4 flex items-center justify-center border border-gray-300 dark:border-zinc-600 rounded-xl">
-                            <div className="w-64 h-64">
-                                {avatarComponent ? (
-                                    avatarComponent
-                                ) : (
-                                    <Loading />
-                                )}
-                            </div>
+            <div className="mb-4 flex justify-center gap-6 max-lg:flex-col">
+                <div className="w-[290px] max-sm:w-52 flex flex-col items-center gap-2 mx-auto max-lg:h-full">
+                    <div className="p-4 flex items-center justify-center border border-gray-300 dark:border-zinc-600 rounded-xl">
+                        <div className="w-64 h-64 max-sm:w-48 max-sm:h-48">
+                            {avatarComponent ? (
+                                avatarComponent
+                            ) : (
+                                <Loading />
+                            )}
                         </div>
-                        {values && selectInputs ? (
-                            <Button
-                                type="submit"
-                                name="random"
-                                value="Aleatorio"
-                                onClick={handleRandom}
-                                disabled={disabledRandomBtn}
-                            />
-                        ) : (
-                            <Loading />
-                        )}
                     </div>
+                    {values && selectInputs ? (
+                        <Button
+                            type="submit"
+                            name="random"
+                            value="Aleatorio"
+                            onClick={handleRandom}
+                            disabled={disabledRandomBtn}
+                        />
+                    ) : (
+                        <Loading />
+                    )}
                 </div>
                 <div className="w-full h-full">
                     {values && selectInputs ? (
