@@ -1,5 +1,5 @@
 import { deleteGameRepository, getGameByUserRepository } from '../repositories/playing.js';
-import { getRankingByUserRepository, updateWinStreakRepository, addPointInRankingRepository } from '../repositories/ranking.js';
+import { getRankingByUserRepository, updateWinStreakRepository, addPointInRankingRepository, resetWinStreakRepository } from '../repositories/ranking.js';
 import helper from '../helpers/helpers.js';
 
 export const continueGame = async (req, res, next) => {
@@ -16,13 +16,26 @@ export const continueGame = async (req, res, next) => {
         console.log('Usted eligio:', answeredArticle);
         console.log('Respuesta correcta:', correctAnswer);
 
+        let ranking = await getRankingByUserRepository(user);
+
         if (answeredArticle !== correctAnswer) {
             await deleteGameRepository(user);
+            await resetWinStreakRepository(ranking);
             console.log('Perdiste...');
-            return res.json({ 'gameOver': 'gameOver' });
+            //console.log('---> currentGamePlaying: ', currentGamePlaying);
+            return res.json({ 
+                'gameOver': 'gameOver',
+                win: correctAnswer,
+                total_points: [ranking.total_points],
+                total_win_streaks: [ranking.total_win_streaks],
+                last_win_streak: [ranking.last_win_streak],
+                results: [
+                    { id: 0, article: currentGamePlaying.article1, views: currentGamePlaying.views1, url: currentGamePlaying.url1 },
+                    { id: 1, article: currentGamePlaying.article2, views: currentGamePlaying.views2, url: currentGamePlaying.url2 }
+                ]
+            });
+            //return res.json({ 'gameOver': 'gameOver' });
         }
-
-        let ranking = await getRankingByUserRepository(user);
 
         // add point (total_points and last_win_streak)
         await addPointInRankingRepository(ranking);
@@ -32,7 +45,17 @@ export const continueGame = async (req, res, next) => {
             await updateWinStreakRepository(ranking, ranking.last_win_streak);
         }
 
-        return res.json({ 'keepGoing': 'keepGoing' });
+        return res.json({
+            'keepGoing': 'keepGoing',
+            win: correctAnswer,
+            total_points: [ranking.total_points],
+            total_win_streaks: [ranking.total_win_streaks],
+            last_win_streak: [ranking.last_win_streak],
+            results: [
+                { id: 0, article: currentGamePlaying.article1, views: currentGamePlaying.views1, url: currentGamePlaying.url1 },
+                { id: 1, article: currentGamePlaying.article2, views: currentGamePlaying.views2, url: currentGamePlaying.url2 }
+            ]
+        });
 
     } catch (error) {
         next(error);

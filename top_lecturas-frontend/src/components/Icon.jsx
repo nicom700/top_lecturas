@@ -48,7 +48,13 @@ export default function Icon({icon}) {
         <path d="M15 11L12.087 8.08704V8.08704C12.039 8.03897 11.961 8.03897 11.913 8.08704V8.08704L9 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 
-    const icons = {playIcon, rankingIcon, aboutIcon, profileIcon, chevronDownIcon, barsIcon, crownIcon, coinIcon, arrowUpIcon};
+    const emptyImageIcon = <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+    </svg>
+
+    const icons = {playIcon, rankingIcon, aboutIcon, profileIcon, chevronDownIcon, barsIcon, crownIcon, coinIcon, arrowUpIcon, emptyImageIcon};
 
     return (
         <>{icons[icon]}</>
