@@ -7,4 +7,5 @@ export default {
     CLIENT_URL: process.env.CLIENT_URL || 'http://localhost',
     MONGO_STRING: process.env.MONGO_STRING || '',
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY || '',
+    ARTICLES_BANNED: process.env.ARTICLES_BANNED || '',
 }

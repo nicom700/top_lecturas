@@ -1,5 +1,6 @@
 import { getGameByUserRepository, createGameRepository, updateGameRepository } from '../repositories/playing.js';
 import { getRankingByUserRepository, createRankingByUserRepository, resetWinStreakRepository } from '../repositories/ranking.js';
+import config from '../config.js';
 import helper from '../helpers/helpers.js';
 import fetch from 'node-fetch';
 
@@ -19,7 +20,7 @@ export const startGame = async (req, res, next) => {
         }
 
         console.log('----------------------------------------------------------------');
-        console.log('Partida creada:', article1, article2);
+        console.log(`Partida creada: ${article1} vs. ${article2}`);
         console.log('Partida en db:', currentGamePlaying);
 
         return res.json({
@@ -60,7 +61,14 @@ const getOrderedWikipediaArticles = async () => {
     const ARTICLE_API_URL = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia/all-access/' + helper.getPreviousYearMonth() + '/all-days';
     const IMAGE_API_URL = 'https://es.wikipedia.org/api/rest_v1/page/media-list/';
 
-    const pageViews = await getPageViews(ARTICLE_API_URL);
+    // get articles
+    let pageViews = await getPageViews(ARTICLE_API_URL);
+
+    // filter articles
+    const ARTICLES_BANNED = eval(config.ARTICLES_BANNED);
+    pageViews = pageViews.filter(item => !ARTICLES_BANNED.includes(item.article));
+    
+    // randomize articles
     const randomKeys = helper.shuffle(Object.keys(pageViews));
 
     return {
