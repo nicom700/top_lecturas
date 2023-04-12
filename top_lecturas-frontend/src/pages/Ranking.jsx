@@ -1,34 +1,58 @@
-import React, { useState } from "react";
-import Card from "../components/Card";
-import Tabla from "../components/TableRanking";
-import TitleH1 from "../components/TitleH1";
-
-const initialData = [
-  { place: "4º", user: "Carla", points: 100, streak: 5 },
-  { place: "5º", user: "Cecilia", points: 85, streak: 3 },
-  { place: "6º", user: "Daniel", points: 100, streak: 5 },
-  { place: "7º", user: "Pedro", points: 70, streak: 2 },
-  { place: "8º", user: "Juan", points: 100, streak: 5 },
-  { place: "9º", user: "Juan", points: 100, streak: 5 },
-  { place: "10º", user: "Martin", points: 65, streak: 2 },
-];
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import RankingService from 'src/services/ranking';
+import Card from 'src/components/Card';
+import TableRanking from 'src/components/TableRanking';
+import TitleH1 from 'src/components/TitleH1';
+import Loading from 'src/components/Loading';
 
 function Ranking() {
-  const [data, setData] = useState(initialData);
+    const [ranking, setRanking] = useState(null);
+    const [rankingPlace1, setRankingPlace1] = useState(null);
+    const [rankingPlace2, setRankingPlace2] = useState(null);
+    const [rankingPlace3, setRankingPlace3] = useState(null);
 
-  return (
-    <div className="my-8 mt-2 grow flex flex-col items-center justify-around">
-      <div className="flex flex-col justify-between items-center mx-auto max-w-7xl h-full bg-white dark:bg-zinc-800 shadow-md rounded-xl">
-      <TitleH1 text="Ranking de Jugadores" />
-        <div className="flex justify-beetween items-center mx-auto max-w-7xl h-80">
-          <Card place={2} name="Ana" points={90} rank="2º" />
-          <Card place={1} name="Juan" points={100} rank="1º" />
-          <Card place={3} name="Carlos" points={80} rank="3º" />
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        RankingService.getRanking()
+            .then((data) => {
+                setRanking(data);
+                setRankingPlace1(data[0]);
+                setRankingPlace2(data[1]);
+                setRankingPlace3(data[2]);
+                
+                //console.log(data[0]);
+                //console.log(data[0].user.avatar);
+            })
+            .catch((error) => {
+                setError(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
+
+    return (
+        <div className="my-8 max-md:px-6 px-8 w-full flex flex-col items-center">
+            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
+                <TitleH1 text="Ranking de Jugadores" />
+                {ranking ? (
+                    <>
+                        <div className="w-full max-lg:flex-col flex items-center justify-center gap-6 mx-auto">
+                            <Card place={'2'} ranking={ranking[1]} className={'order-1 max-lg:order-2'} />
+                            <Card place={'1'} ranking={ranking[0]} className={'order-2 max-lg:order-1'} />
+                            <Card place={'3'} ranking={ranking[2]} className={'order-3 max-lg:order-3'} />
+                        </div>
+                        <TableRanking ranking={ranking} />
+                    </>
+                ):(
+                    <Loading />
+                )}
+            </div>
         </div>
-        <Tabla />
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Ranking;

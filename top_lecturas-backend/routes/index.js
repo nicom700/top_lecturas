@@ -8,6 +8,10 @@ import rankingRoutes from './ranking.js';
 
 const apiRoutes = Router();
 
+apiRoutes.get('/', (req, res) => {
+    res.status(200).json({ status: 200 })
+});
+
 apiRoutes.post('/login', login);
 apiRoutes.post('/register', register);
 apiRoutes.get('/profile', auth, profile);
@@ -15,6 +19,6 @@ apiRoutes.get('/profile', auth, profile);
 apiRoutes.use('/dashboard', auth, dashboardRoutes);
 apiRoutes.use('/user', auth, userRoutes);
 apiRoutes.use('/game', auth, gameRoutes);
-apiRoutes.use('/ranking', auth, rankingRoutes);
+apiRoutes.use('/ranking', rankingRoutes);
 
 export default apiRoutes;

@@ -1,14 +1,17 @@
-import { getAllRankingsRepository} from '../repositories/ranking.js';
+import { getAllRankingsRepository } from '../repositories/ranking.js';
 
-export const getAllRankings = async (req, res) => {
+export const getAllRankings = async (req, res, next) => {
     try {
         
-        let rankings = await getAllRankingsRepository();
+        let rankingsList = await getAllRankingsRepository();
         
-        return res.json({rankings});
+        const rankings = rankingsList.map(({ _id, total_points, total_win_streaks, user }) => {
+            return { _id, total_points, total_win_streaks, user };
+        });
+        
+        return res.json(rankings);
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error en el servidor');
+    } catch (error) {
+        next(error);
     }
 }

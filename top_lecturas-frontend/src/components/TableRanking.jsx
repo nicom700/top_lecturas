@@ -1,57 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import Loading from './Loading';
+import { Avatar } from 'avataaars';
 
-const initialData = [
-    { place: "4º", user: "Carla", points: 100, streak: 5 },
-    { place: "5º", user: "Cecilia", points: 85, streak: 3 },
-    { place: "6º", user: "Daniel", points: 100, streak: 5 },
-    { place: "7º", user: "Pedro", points: 70, streak: 2 },
-    { place: "8º", user: "Juan", points: 100, streak: 5 },
-    { place: "9º", user: "Juan", points: 100, streak: 5 },
-    { place: "10º", user: "Martin", points: 65, streak: 2 },
-  ];
+export default function TableRanking({ ranking }) {
+    const [avatarComponent, setAvatarComponent] = useState(null);
 
-  function Tabla() {
-    const [data, setData] = useState(initialData);
+    useEffect(() => {
+        // if (!ranking) return;
+        // //if (!ranking || (ranking.user.hasOwnProperty('avatar') && ranking.user.avatar === undefined)) return setAvatarComponent(null);
+        // setAvatarComponent(
+        //     <Avatar
+        //         style={{ width: '48px', height: '48px' }}
+        //         avatarStyle="Circle"
+        //         {...ranking.user.avatar}
+        //     />
+        // );
+    }, []);
+
     return (
-        <div className="my-8 max-md:px-2 px-8 w-full flex flex-col items-center max-w-5xl rounded-xl">
-          <table className="w-full shadow-md">
-            <thead>
-              <tr>
-                <th className="border border-gray-300  text-gray-700 px-4 py-2 font-black  bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 rounded-xl ">
-                  <span>Puesto</span>
-                </th>
-                <th className="border border-gray-300 text-gray-700 px-4 py-2 font-black bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                  <span>Usuario</span>
-                </th>
-                <th className="border border-gray-300 text-gray-700 px-4 py-2 font-black bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                  <span>Puntos</span>
-                </th>
-                <th className="border border-gray-300 text-gray-700 px-4 py-2 font-black bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                  <span>Racha</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td className=" px-4 py-2 border border-gray-300 text-gray-700 text-center italic font-bold font-sans  bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                    {item.place}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-gray-700 text-center italic font-bold font-sans  bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                    {item.user}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-gray-700 text-center italic font-bold font-sans  bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                    {item.points}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-gray-700 text-center italic font-bold font-sans  bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600 ">
-                    {item.streak}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="w-full overflow-x-auto">
+            <table className="w-full my-8 max-md:px-2 px-8 shadow-md">
+                <thead>
+                    <tr>
+                        <th className="border border-gray-300 text-gray-700 px-4 py-2 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                            <span>Nombre de usuario</span>
+                        </th>
+                        <th className="border border-gray-300 text-gray-700 px-4 py-2 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                            <span>Puesto</span>
+                        </th>
+                        <th className="border border-gray-300 text-gray-700 px-4 py-2 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                            <span>Mejor racha</span>
+                        </th>
+                        <th className="border border-gray-300 text-gray-700 px-4 py-2 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                            <span>Puntos totales</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {ranking && ranking.map( (item, index) => (
+                        <tr key={item._id}>
+                            <td className="border border-gray-300 text-gray-700 px-4 py-2 text-center bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                                {/* <Avatar
+                                    style={{ width: '48px', height: '48px' }}
+                                    avatarStyle="Circle"
+                                    {...item.user.avatar}
+                                /> */}
+                                {/* <Avatar
+                                    style={{ width: '48px', height: '48px' }}
+                                    avatarStyle="Circle"
+                                    {...item.user.avatar}
+                                /> */}
+                                {/* {avatarComponent ? avatarComponent : <Loading />} */}
+                                {item.user.name}
+                            </td>
+                            <td className="border border-gray-300 text-gray-700 px-4 py-2 text-center bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                                {index + 1}
+                            </td>
+                            <td className="border border-gray-300 text-gray-700 px-4 py-2 text-center bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                                {item.total_win_streaks}
+                            </td>
+                            <td className="border border-gray-300 text-gray-700 px-4 py-2 text-center bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-600">
+                                {item.total_points}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
-    )
-  }
-
-  export default Tabla;
+    );
+}

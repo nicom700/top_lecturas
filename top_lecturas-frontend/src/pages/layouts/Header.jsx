@@ -95,7 +95,7 @@ export function Header() {
                                     <Menu.Item>
                                         {({ active }) => (
                                             <Link
-                                                to={'/'}
+                                                to={'/ranking'}
                                                 className={`${
                                                     active
                                                         ? 'bg-primaryHover text-white active:bg-primaryActive active:text-white'
