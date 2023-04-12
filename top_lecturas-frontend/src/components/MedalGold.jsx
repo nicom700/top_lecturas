@@ -1,4 +1,4 @@
-import OroSVG from 'src/assets/medalOro.svg'
+import GoldSVG from 'src/assets/medalGold.svg'
 
 export default function Medal({className}){
 
@@ -6,7 +6,7 @@ export default function Medal({className}){
 
     return (
         <div className={classN}>
-            <img src={OroSVG} className="bg-cover block" alt="Top Lecturas" />
+            <img src={GoldSVG} className="bg-cover block" alt="Top Lecturas" />
         </div>
     );
 }
