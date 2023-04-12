@@ -1,6 +1,8 @@
 import Loading from 'src/components/Loading';
 import { useUserContext } from 'src/context/UserContext';
 import Dashboard from './Dashboard';
+import { Link } from 'react-router-dom';
+import Icon from 'src/components/Icon';
 
 export default function Index() {
     const { user, ready } = useUserContext();
@@ -10,9 +12,11 @@ export default function Index() {
     }
 
     return (
-        <div className="my-8 max-md:px-6 px-8 w-full flex flex-col items-center">
-            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around">
+        <div className="my-8 max-md:px-6 px-8 w-full flex flex-col gap-4 items-center">
+            <div className="order-1 max-md:order-2 max-w-7xl w-full flex flex-col gap-4 justify-around">
                 {user && <Dashboard />}
+            </div>
+            <div className="order-2 max-md:order-1 max-w-7xl w-full flex flex-col gap-4 justify-around">
                 <div className="text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                     <p className="">
                         ¡Bienvenido a Top Lecturas! El juego donde pondrás a
@@ -20,6 +24,15 @@ export default function Index() {
                         artículos de Wikipedia.
                     </p>
                     <p className="mt-2">¿Estás listo para convertirte en el mejor jugador de Top Lecturas? ¡Comienza a jugar ahora!</p>
+                    <div className="flex justify-center mt-6">
+                        <Link 
+                            to={'/start'}
+                            className="flex items-center w-fit px-6 py-2 text-white overflow-y-auto break-words rounded-xl transition-all bg-primary hover:bg-primaryHover active:bg-primaryActive active:text-white disabled:bg-stone-600 dark:disabled:bg-zinc-700 dark:bg-DarkBtn dark:hover:bg-DarkBtnHover dark:active:bg-DarkBtnActive"
+                        >
+                            <Icon icon="playIcon" />
+                            <span>Jugar ahora</span>
+                        </Link>
+                    </div>
                 </div>
                 <div className="flex max-sm:flex-col gap-6 items-stretch">
                     <div className="w-1/2 max-sm:w-full text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
