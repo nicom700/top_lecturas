@@ -46,7 +46,7 @@ export function Header() {
                         </div>
                         <div className="mx-2 max-lg:mx-0 font-bold">
                             <Link
-                                to={'/'}
+                                to={'/us'}
                                 className="flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700"
                             >
                                 <Icon icon="aboutIcon" />
@@ -110,7 +110,7 @@ export function Header() {
                                     <Menu.Item>
                                         {({ active }) => (
                                             <Link
-                                                to={'/'}
+                                                to={'/us'}
                                                 className={`${
                                                     active
                                                         ? 'bg-primaryHover text-white active:bg-primaryActive active:text-white'

@@ -7,6 +7,7 @@ import Register from 'src/pages/auth/Register';
 import Profile from 'src/pages/profile/Profile';
 import Start from 'src/pages/game/Start';
 import Ranking from 'src/pages/Ranking';
+import Us from 'src/pages/Us'
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
             {
                 path: '/ranking',
                 element: <Ranking />
-            }
+            },
+            {
+                path: '/us',
+                element: <Us />,
+            },
             
         ],
     },
