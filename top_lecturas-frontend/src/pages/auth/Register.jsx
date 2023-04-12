@@ -173,7 +173,7 @@ export default function Register() {
                             type="text"
                             name="name"
                             value={values.name}
-                            placeholder="John Doe"
+                            placeholder="JohnDoe_10"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={nameE ? 'outline-red-500' : ''}

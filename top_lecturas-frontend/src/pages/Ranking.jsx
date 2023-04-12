@@ -1,38 +1,33 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import RankingService from 'src/services/ranking';
+import Loading from 'src/components/Loading';
+import TitleH1 from 'src/components/TitleH1';
 import Card from 'src/components/Card';
 import TableRanking from 'src/components/TableRanking';
-import TitleH1 from 'src/components/TitleH1';
-import Loading from 'src/components/Loading';
 
-function Ranking() {
+export default function Ranking() {
     const [ranking, setRanking] = useState(null);
-    const [rankingPlace1, setRankingPlace1] = useState(null);
-    const [rankingPlace2, setRankingPlace2] = useState(null);
-    const [rankingPlace3, setRankingPlace3] = useState(null);
-
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
 
     useEffect(() => {
         RankingService.getRanking()
             .then((data) => {
                 setRanking(data);
-                setRankingPlace1(data[0]);
-                setRankingPlace2(data[1]);
-                setRankingPlace3(data[2]);
-                
-                //console.log(data[0]);
-                //console.log(data[0].user.avatar);
             })
             .catch((error) => {
                 setError(error);
-            })
-            .finally(() => {
-                setIsLoading(false);
             });
     }, []);
+
+    if(error){
+        return (
+            <div className="my-12 grow flex flex-col items-center">
+                <TitleH1 text="Algo salio mal 😖" />
+                <p className="mb-4 text-2xl text-center text-gray-700 dark:text-gray-300">No se pudo cargar el Top 10 Ranking</p>
+            </div>
+        );
+    }
 
     return (
         <div className="my-8 max-md:px-6 px-8 w-full flex flex-col items-center">
@@ -41,9 +36,9 @@ function Ranking() {
                 {ranking ? (
                     <>
                         <div className="w-full max-lg:flex-col flex items-center justify-center gap-6 mx-auto">
-                            <Card place={'2'} ranking={ranking[1]} className={'order-1 max-lg:order-2'} />
-                            <Card place={'1'} ranking={ranking[0]} className={'order-2 max-lg:order-1'} />
-                            <Card place={'3'} ranking={ranking[2]} className={'order-3 max-lg:order-3'} />
+                            <Card place={'2'} ranking={ranking[1]} avatar={ranking[1].user.avatar} className={'order-1 max-lg:order-2'} />
+                            <Card place={'1'} ranking={ranking[0]} avatar={ranking[0].user.avatar} className={'order-2 max-lg:order-1'} />
+                            <Card place={'3'} ranking={ranking[2]} avatar={ranking[2].user.avatar} className={'order-3 max-lg:order-3'} />
                         </div>
                         <TableRanking ranking={ranking} />
                     </>
@@ -54,5 +49,3 @@ function Ranking() {
         </div>
     );
 }
-
-export default Ranking;

@@ -57,7 +57,7 @@ export default function Dropdown() {
                 <div className="bg-gray-500 dark:text-gray-300 rounded-full border border-gray-500 overflow-hidden">
                     <Icon icon="profileIcon" />
                 </div>
-                <div className="px-2 max-sm:hidden font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-x-2">
+                <div className="px-2 max-xl:hidden font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-x-2">
                     Iniciar sesión
                 </div>
             </Link>

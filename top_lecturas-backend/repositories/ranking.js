@@ -46,7 +46,7 @@ export const addPointInRankingRepository = async (ranking) => {
 
 export const getAllRankingsRepository = async () => {
     try {
-        return await Ranking.find().sort({total_win_streaks: -1}).populate('user').select('-last_win_streak');
+        return await Ranking.find().sort({total_win_streaks: -1}).limit(10).populate('user').select('-last_win_streak');
     } catch (error) {
         return new Error('No se pudo obtener los rankings');
     }
