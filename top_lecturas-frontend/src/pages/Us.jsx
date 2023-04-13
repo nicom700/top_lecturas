@@ -32,14 +32,14 @@ const US_DATA = [
 
 export default function Us () {
   return (
-    <div className='my-4 max-md:px-2 px-8 w-full flex flex-col items-center gap-4'>
+    <div className='my-8 max-md:px-6 px-8 w-full flex flex-col items-center gap-4'>
         <TitleH1 text='Sobre nosotros'/>
-        <div className='max-w-3xl w-full flex justify-between'>
+        <div className='max-h-48 max-sm:w-full max-sm:h-48 w-full flex max-sm:flex-col gap-4 max-sm:gap-3 justify-between'>
             {
                 US_DATA.map(data => (
-                    <div className='max-w-3xl w-full gap-4 max-sm:gap-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl mx-1.5 text-center flex	flex-col items-center'>
+                    <div key={data.linLink} className='max-w-3xl w-full gap-4  text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl mx-1.5 text-center flex	flex-col items-center'>
                         <h2 className='text-lg font-bold my-2' >{data.name} <br/> {data.lastName}</h2>
-                        <div className='flex justify-center'>
+                        <div className='flex justify-center gap-3'>
                             <Link to={data.gitLink}>
                                 <Icon icon='gitHubIcon'/>
                             </Link>
