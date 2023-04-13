@@ -225,7 +225,7 @@ export default function Start() {
                                 <div className="m-auto h-full flex flex-col gap-1 justify-end items-end flex-1">
                                     <div className={ win === results[item.id].article ? 'bg-green-500 rounded-full': 'bg-red-500 rounded-full' }>
                                         <div className="py-1 px-4 overflow-y-auto break-words">
-                                            <p className="text-base text-center text-white">{new Intl.NumberFormat('es-AR', { maximumSignificantDigits: 3 }).format(results[item.id].views)}</p>
+                                            <p className="text-base text-center text-white">{new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(results[item.id].views)}</p>
                                         </div>                                    
                                     </div>
                                     <div className="m-auto justify-end items-end text-center text-gray-700 dark:text-gray-300">Vistas</div>

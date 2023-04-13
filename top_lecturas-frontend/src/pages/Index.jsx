@@ -1,7 +1,7 @@
-import Loading from 'src/components/Loading';
 import { useUserContext } from 'src/context/UserContext';
-import Dashboard from './Dashboard';
 import { Link } from 'react-router-dom';
+import Loading from 'src/components/Loading';
+import Dashboard from './Dashboard';
 import Icon from 'src/components/Icon';
 
 export default function Index() {

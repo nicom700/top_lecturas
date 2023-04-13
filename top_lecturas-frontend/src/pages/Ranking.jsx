@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import RankingService from 'src/services/ranking';
 import Loading from 'src/components/Loading';
 import TitleH1 from 'src/components/TitleH1';
@@ -30,8 +29,8 @@ export default function Ranking() {
     }
 
     return (
-        <div className="my-8 max-md:px-6 px-8 w-full flex flex-col items-center">
-            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
+        <div className="my-4 max-md:px-6 px-8 w-full flex flex-col items-center">
+            <div className="max-w-7xl w-full flex flex-col gap-4 justify-around mb-4">
                 <TitleH1 text="Ranking de Jugadores" />
                 {ranking ? (
                     <>
@@ -40,6 +39,9 @@ export default function Ranking() {
                             <Card place={'1'} ranking={ranking[0]} avatar={ranking[0].user.avatar} className={'order-2 max-lg:order-1'} />
                             <Card place={'3'} ranking={ranking[2]} avatar={ranking[2].user.avatar} className={'order-3 max-lg:order-3'} />
                         </div>
+                        <h3 className="text-gray-700 dark:text-gray-300 mt-10 text-xl font-bold text-center">
+                            Top 10: mejores jugadores
+                        </h3>
                         <TableRanking ranking={ranking} />
                     </>
                 ):(

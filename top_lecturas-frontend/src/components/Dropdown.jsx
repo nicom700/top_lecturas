@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useUserContext } from 'src/context/UserContext';
 import { Menu, Transition } from '@headlessui/react';
 import Avatar from 'avataaars';
@@ -8,6 +8,10 @@ import Loading from './Loading';
 
 export default function Dropdown() {
     const { user, setUser, ready } = useUserContext();
+
+    const location = useLocation();
+    const pathname = location.pathname;
+
     const [values, setValues] = useState(null);
     const [avatarComponent, setAvatarComponent] = useState(null);
 
@@ -98,11 +102,10 @@ export default function Dropdown() {
                             {({ active }) => (
                                 <Link
                                     to={'/profile'}
-                                    className={`${
-                                        active
-                                            ? 'bg-primaryHover text-white active:bg-primaryActive active:text-white'
-                                            : 'text-gray-700 dark:text-gray-300'
-                                    } block px-4 py-2 transition-all`}
+                                    className={`${active
+                                        ? 'bg-primaryHover text-white active:bg-primaryActive active:text-white '
+                                        : pathname === '/profile' ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white text-gray-700 ' : 'text-gray-700 dark:text-gray-300 '
+                                    }flex items-center px-4 py-2 transition-all`}
                                 >
                                     Perfil
                                 </Link>
@@ -113,11 +116,10 @@ export default function Dropdown() {
                                 <Link
                                     to={'/'}
                                     onClick={logoutHandler}
-                                    className={`${
-                                        active
-                                            ? 'bg-primaryHover text-white active:bg-primaryActive active:text-white'
-                                            : 'text-gray-700 dark:text-gray-300'
-                                    } block px-4 py-2 transition-all`}
+                                    className={`${active
+                                        ? 'bg-primaryHover text-white active:bg-primaryActive active:text-white '
+                                        : 'text-gray-700 dark:text-gray-300 '
+                                    }block px-4 py-2 transition-all`}
                                 >
                                     Cerrar sesión
                                 </Link>

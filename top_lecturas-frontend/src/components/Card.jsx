@@ -28,7 +28,7 @@ export default function Card({place, ranking, avatar, className}) {
     }
 
     return (
-        <div className={`${place === '1' ? 'w-1/3 min-h-[420px] max-h-[570px]' : 'w-1/4 grow min-h-[380px] max-h-[520px]'} flex flex-col items-center justify-center max-lg:w-full p-6 shadow-xl bg-white dark:bg-bgMenuDark dark:text-gray-300 border border-gray-300 dark:border-transparent rounded-xl ${className}`}>
+        <div className={`${place === '1' ? 'w-1/3 min-h-[420px] max-h-[570px]' : 'w-1/4 grow min-h-[380px] max-h-[520px]'} flex flex-col items-center justify-center max-lg:w-full p-6 shadow-xl bg-white dark:bg-zinc-800 dark:text-gray-300 rounded-xl ${className}`}>
             <div className="w-full grow flex flex-col items-center">
                 <h1 className="flex items-center justify-center text-xl font-bold text-gray-700 dark:text-gray-300 mb-4">
                     {place} ° Puesto
@@ -50,9 +50,9 @@ export default function Card({place, ranking, avatar, className}) {
                 </div>
             </div>
             <div className="w-full flex gap-4 mt-4">
-                <div className="w-1/2 flex flex-col items-center gap-1 font-bold text-sm text-center text-white bg-primary dark:bg-primaryHover rounded-xl p-4 overflow-hidden">
+                <div className="w-1/2 flex flex-col items-center gap-1 font-bold text-sm text-center text-white bg-primary dark:bg-primaryDark rounded-xl p-4 overflow-hidden">
                     <div className="w-full text-xl max-h-20 overflow-y-auto break-words">
-                        {ranking.total_win_streaks}
+                        {new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(ranking.total_win_streaks)}
                     </div>
                     <div className="w-full flex flex-col items-center">
                         <div className="">
@@ -61,9 +61,9 @@ export default function Card({place, ranking, avatar, className}) {
                         <div className="">Mejor racha</div>
                     </div>
                 </div>
-                <div className="w-1/2 flex flex-col items-center gap-1 font-bold text-sm text-center text-white bg-primary dark:bg-primaryHover rounded-xl p-4 overflow-hidden">
+                <div className="w-1/2 flex flex-col items-center gap-1 font-bold text-sm text-center text-white bg-primary dark:bg-primaryDark rounded-xl p-4 overflow-hidden">
                     <div className="w-full text-xl max-h-20 overflow-y-auto break-words">
-                        {ranking.total_points}
+                        {new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(ranking.total_points)}
                     </div>
                     <div className="w-full flex flex-col items-center">
                         <div className="">

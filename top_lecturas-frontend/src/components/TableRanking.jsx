@@ -2,31 +2,31 @@ import Avatar from 'avataaars';
 
 export default function TableRanking({ ranking }) {
     return (
-        <div className="w-full mt-10 overflow-x-auto shadow-md">
+        <div className="w-full overflow-x-auto shadow-md rounded-t-xl">
             <table className="w-full table-auto max-md:px-2 px-8">
-                <caption className="caption-top text-gray-700 dark:text-gray-300 mb-4">
-                    Top 10: mejores jugadores
-                </caption>
-                <thead>
-                    <tr>
-                        <th className="border border-gray-300 text-gray-700 px-4 py-4 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-700">
+                <thead className="divide-y divide-primaryHover dark:divide-primary">
+                    <tr className="divide-x divide-primaryHover dark:divide-primaryHoverDark bg-primary dark:bg-primaryDark">
+                        <th className="text-white px-4 py-4">
+                            <span>#</span>
+                        </th>
+                        <th className="text-white px-4 py-4">
                             <span>Nombre de usuario</span>
                         </th>
-                        <th className="border border-gray-300 text-gray-700 px-4 py-4 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-700">
-                            <span>Puesto</span>
-                        </th>
-                        <th className="border border-gray-300 text-gray-700 px-4 py-4 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-700">
+                        <th className="text-white px-4 py-4">
                             <span>Mejor racha</span>
                         </th>
-                        <th className="border border-gray-300 text-gray-700 px-4 py-4 bg-white dark:bg-bgDarkPrimary dark:text-gray-300 dark:border-zinc-700">
+                        <th className="text-white px-4 py-4">
                             <span>Puntos totales</span>
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-gray-300 dark:divide-zinc-700">
                     {ranking && ranking.map( (item, index) => (
-                        <tr key={item._id}>
-                            <td className="border border-gray-300 text-gray-700 px-4 py-2 font-bold text-start bg-white dark:bg-bgMenuDark dark:text-gray-300 dark:border-zinc-700">
+                        <tr key={item._id} className="divide-x divide-gray-300 dark:divide-zinc-700">
+                            <td className="text-gray-700 px-4 py-2 text-center bg-white dark:bg-zinc-800 dark:text-gray-300">
+                                {index + 1}°
+                            </td>
+                            <td className="text-gray-700 px-4 py-2 font-bold text-start bg-white dark:bg-zinc-800 dark:text-gray-300">
                                 <div className="flex items-center gap-2">
                                     <Avatar
                                         style={{ width: '48px', height: '48px' }}
@@ -36,14 +36,11 @@ export default function TableRanking({ ranking }) {
                                     {item.user.name}
                                 </div>
                             </td>
-                            <td className="border border-gray-300 text-gray-700 px-4 py-2 text-center bg-white dark:bg-bgMenuDark dark:text-gray-300 dark:border-zinc-700">
-                                {index + 1}
+                            <td className="text-gray-700 px-4 py-2 font-bold text-center bg-white dark:bg-zinc-800 dark:text-gray-300">
+                                {new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(item.total_win_streaks)}
                             </td>
-                            <td className="border border-gray-300 text-gray-700 px-4 py-2 font-bold text-center bg-white dark:bg-bgMenuDark dark:text-gray-300 dark:border-zinc-700">
-                                {item.total_win_streaks}
-                            </td>
-                            <td className="border border-gray-300 text-gray-700 px-4 py-2 text-center bg-white dark:bg-bgMenuDark dark:text-gray-300 dark:border-zinc-700">
-                                {item.total_points}
+                            <td className="text-gray-700 px-4 py-2 text-center bg-white dark:bg-zinc-800 dark:text-gray-300">
+                                {new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(item.total_points)}
                             </td>
                         </tr>
                     ))}

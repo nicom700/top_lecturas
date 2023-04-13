@@ -51,9 +51,6 @@ export default function Dashboard() {
 
     return (
         <>
-            {/* <TitleH1 text="Dashboard" />
-            <p className="">Bienvenido {user.name}</p> */}
-
             <div className="flex gap-4 justify-center items-stretch max-sm:flex-col">
                 <div className="w-48 max-h-48 max-sm:w-full max-sm:h-48 flex flex-col justify-center gap-2 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                     <div className="text-4xl font-bold text-gray-700 dark:text-gray-300 text-center py-2 overflow-y-auto break-words">

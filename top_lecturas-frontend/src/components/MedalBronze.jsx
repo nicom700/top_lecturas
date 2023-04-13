@@ -1,6 +1,6 @@
 import BronzeSVG from 'src/assets/medalBronze.svg'
 
-export default function Medal({className}){
+export default function MedalBronze({className}){
 
     const classN = 'flex items-center text-primary hover:text-primaryHover dark:text-primaryDark dark:hover:text-primaryHoverDark' + (className ? ' ' + className : '');
 
