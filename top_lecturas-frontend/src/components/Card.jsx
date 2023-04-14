@@ -44,7 +44,7 @@ export default function Card({place, ranking, avatar, className}) {
                     <Image />
                 </div>
                 <div className="w-full max-h-32 overflow-y-auto break-words">
-                    <h2 className={`${place === '1' ? 'text-5xl' : 'text-3xl'} items-center my-4 mx-auto font-bold text-center text-gray-700 dark:text-gray-300`}>
+                    <h2 className={`${place === '1' ? 'text-5xl dark:text-white' : 'text-3xl dark:text-gray-300'} items-center my-4 mx-auto font-bold text-center text-gray-700`}>
                         {ranking.user.name}
                     </h2>
                 </div>

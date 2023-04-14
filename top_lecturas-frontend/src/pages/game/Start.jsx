@@ -88,15 +88,16 @@ export default function Start() {
                 setResults(data.results);
                 setWin(data.win);
 
-                setTotalPoints(data.total_points);
-                setTotalWinStreaks(data.total_win_streaks);
-                setLastWinStreak(data.last_win_streak);
-
                 if (data.gameOver){
                     setStatus(data.gameOver);
                     setDisabledBtn(false);
                 }else{
                     setStatus(data.keepGoing);
+
+                    setTotalPoints(data.total_points);
+                    setTotalWinStreaks(data.total_win_streaks);
+                    setLastWinStreak(data.last_win_streak);
+
                     setTimeout(() => {
                         setArticles(null);
                     }, 3000);
