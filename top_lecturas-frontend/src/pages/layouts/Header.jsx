@@ -30,7 +30,10 @@ export function Header() {
                         <div className="mx-2 max-lg:mx-0 font-bold">
                             <Link
                                 to={'/start'}
-                                className={`${pathname === '/start' ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white ' : ''}flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700`}
+                                className={`${pathname === '/start'
+                                    ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white '
+                                    : ''
+                                }flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:active:bg-zinc-900 dark:active:text-white dark:focus:bg-zinc-700`}
                             >
                                 <Icon icon="playIcon" />
                                 <span>Jugar</span>
@@ -39,7 +42,10 @@ export function Header() {
                         <div className="mx-2 max-lg:mx-0 font-bold">
                             <Link
                                 to={'/ranking'}
-                                className={`${pathname === '/ranking' ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white ' : ''}flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700`}
+                                className={`${pathname === '/ranking'
+                                    ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white '
+                                    : ''
+                                }flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:active:bg-zinc-900 dark:active:text-white dark:focus:bg-zinc-700`}
                             >
                                 <Icon icon="rankingIcon" />
                                 <span>Top jugadores</span>
@@ -48,7 +54,10 @@ export function Header() {
                         <div className="mx-2 max-lg:mx-0 font-bold">
                             <Link
                                 to={'/us'}
-                                className={`${pathname === '/us' ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white ' : ''}flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700`}
+                                className={`${pathname === '/us'
+                                    ? 'bg-slate-200 dark:bg-zinc-700/80 dark:text-white '
+                                    : ''
+                                }flex items-center p-3 px-6 max-lg:px-3 rounded-xl transition-all hover:bg-primaryHover active:bg-primaryActive active:text-white text-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-zinc-700 dark:active:bg-zinc-900 dark:active:text-white dark:focus:bg-zinc-700`}
                             >
                                 <Icon icon="aboutIcon" />
                                 <span>Nosotros</span>
