@@ -179,7 +179,7 @@ export default function Start() {
                 <div className="max-w-3xl w-full gap-4 max-sm:gap-2 flex">
                     {articles ? articles.map((item) => (
                         <form key={item.id} className="w-2/4 flex flex-col gap-4 rounded-xl p-4 bg-white dark:bg-zinc-800 shadow-md mb-4" >
-                            <div className={ 
+                            <div className={
                                 status === 'gameOver' && win !== results[item.id].article ? 
                                     'blur-sm brightness-50 hue-rotate-15 saturate-200 transition-all mb-4'
                                     : status === 'keepGoing' && win !== results[item.id].article ? 
@@ -188,24 +188,22 @@ export default function Start() {
                                             'shadow-2xl transition-all scale-125 mb-4'
                                             : 'mb-4'
                             }>
-
-                            
-                            {item.orientation === 'Vertical' || item.orientation === 'Horizontal' ? (
-                                <div className="relative overflow-hidden w-full max-sm:h-40 h-64 flex justify-center items-center bg-white border border-gray-300 dark:border-zinc-600">
-                                    <div className="animate-spin absolute bg-gradient-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%] opacity-100"></div>
-                                    <div className="z-10 h-full flex flex-col justify-center items-center gap-2 p-2">
-                                        <img src={item.url} className="object-contain w-full h-full m-auto" />
+                                {item.orientation === 'Vertical' || item.orientation === 'Horizontal' ? (
+                                    <div className="relative overflow-hidden w-full max-sm:h-40 h-64 flex justify-center items-center bg-white border border-gray-300 dark:border-zinc-600">
+                                        <div className="animate-spin absolute bg-gradient-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%] opacity-100"></div>
+                                        <div className="z-10 h-full flex flex-col justify-center items-center gap-2 p-2">
+                                            <img src={item.url} className="object-contain w-full h-full m-auto" />
+                                        </div>
                                     </div>
-                                </div>
-                            ): (
-                                <div className="relative overflow-hidden w-full max-sm:h-40 h-64 flex justify-center items-center bg-white border border-gray-300 dark:border-zinc-600 text-gray-700 dark:text-gray-300">
-                                    <div className="animate-spin absolute bg-gradient-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%]"></div>
-                                    <div className="z-10 flex flex-col justify-center items-center gap-2 p-2 text-white">
-                                        <Icon icon="emptyImageIcon" />
-                                        <div className="font-bold text-center">Sin imágen</div>
+                                ): (
+                                    <div className="relative overflow-hidden w-full max-sm:h-40 h-64 flex justify-center items-center bg-white border border-gray-300 dark:border-zinc-600 text-gray-700 dark:text-gray-300">
+                                        <div className="animate-spin absolute bg-gradient-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%]"></div>
+                                        <div className="z-10 flex flex-col justify-center items-center gap-2 p-2 text-white">
+                                            <Icon icon="emptyImageIcon" />
+                                            <div className="font-bold text-center">Sin imágen</div>
+                                        </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
                             </div>
                             <div className={ status === 'gameOver' && win !== results[item.id].article ? 'shake ease-in-out bg-red-500 rounded-md text-white grow flex': 'text-gray-700 dark:text-gray-300 grow flex'}>
                                 {status !== 'gameOver' ? (

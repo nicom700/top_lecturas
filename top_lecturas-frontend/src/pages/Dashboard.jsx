@@ -54,7 +54,7 @@ export default function Dashboard() {
             <div className="flex gap-4 justify-center items-stretch max-sm:flex-col">
                 <div className="w-48 max-h-48 max-sm:w-full max-sm:h-48 flex flex-col justify-center gap-2 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                     <div className="text-4xl font-bold text-gray-700 dark:text-gray-300 text-center py-2 overflow-y-auto break-words">
-                        {lastWinStreak !== null ? lastWinStreak : <Loading />}
+                        {lastWinStreak !== null ? <>{new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(lastWinStreak)}</> : <Loading />}
                     </div>
                     <div className="flex flex-col items-center gap-2 font-bold text-center text-gray-700 dark:text-gray-300">
                         <Icon icon="arrowUpIcon" />
@@ -63,7 +63,7 @@ export default function Dashboard() {
                 </div>
                 <div className="w-48 max-h-48 max-sm:w-full max-sm:h-48 flex flex-col justify-center gap-2 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                     <div className="text-4xl font-bold text-gray-700 dark:text-gray-300 text-center py-2 overflow-y-auto break-words">
-                        {totalWinStreaks !== null ? totalWinStreaks : <Loading />}
+                        {totalWinStreaks !== null ? <>{new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(totalWinStreaks)}</> : <Loading />}
                     </div>
                     <div className="flex flex-col items-center gap-2 font-bold text-center text-gray-700 dark:text-gray-300">
                         <Icon icon="crownIcon" />
@@ -72,7 +72,7 @@ export default function Dashboard() {
                 </div>
                 <div className="w-48 max-h-48 max-sm:w-full max-sm:h-48 flex flex-col justify-center gap-2 bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
                     <div className="text-4xl font-bold text-gray-700 dark:text-gray-300 text-center py-2 overflow-y-auto break-words">
-                        {totalPoints !== null ? totalPoints : <Loading />}
+                        {totalPoints !== null ? <>{new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(totalPoints)}</> : <Loading />}
                     </div>
                     <div className="flex flex-col items-center gap-2 font-bold text-center text-gray-700 dark:text-gray-300">
                         <Icon icon="coinIcon" />
