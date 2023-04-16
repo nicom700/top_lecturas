@@ -156,7 +156,7 @@ export default function Start() {
     }
 
     return (
-        <div className={`${status === 'keepGoing' && 'relative overflow-hidden'}`}>
+        <div className={`${status === 'keepGoing' ? 'relative overflow-x-hidden h-screen' : 'h-screen'}`}>
             <div className="my-4 max-md:px-2 px-8 w-full flex flex-col items-center justify-between gap-4">
                 <div className="max-w-3xl w-full flex flex-col items-center grow">
                     <div className="max-w-3xl w-full flex flex-col gap-4">
