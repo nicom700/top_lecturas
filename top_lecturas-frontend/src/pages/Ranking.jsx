@@ -7,11 +7,15 @@ import TableRanking from 'src/components/TableRanking';
 
 export default function Ranking() {
     const [ranking, setRanking] = useState(null);
-    const [error, setError] = useState();
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         RankingService.getRanking()
             .then((data) => {
+                if (!data || !Array.isArray(data) || data.length === 0) {
+                    setError(new Error('No se pudo cargar el top'));
+                    return;
+                }
                 setRanking(data);
             })
             .catch((error) => {
@@ -19,7 +23,7 @@ export default function Ranking() {
             });
     }, []);
 
-    if(error){
+    if (error) {
         return (
             <div className="my-12 grow flex flex-col items-center">
                 <TitleH1 text="Algo salio mal 😖" />
@@ -34,17 +38,19 @@ export default function Ranking() {
                 <TitleH1 text="Ranking de Jugadores" />
                 {ranking ? (
                     <>
-                        <div className="w-full max-lg:flex-col flex items-center justify-center gap-6 mx-auto">
-                            <Card place={'2'} ranking={ranking[1]} avatar={ranking[1].user.avatar} className={'order-1 max-lg:order-2'} />
-                            <Card place={'1'} ranking={ranking[0]} avatar={ranking[0].user.avatar} className={'order-2 max-lg:order-1'} />
-                            <Card place={'3'} ranking={ranking[2]} avatar={ranking[2].user.avatar} className={'order-3 max-lg:order-3'} />
-                        </div>
+                        {(ranking[0] && ranking[1] && ranking[2]) && (
+                            <div className="w-full max-lg:flex-col flex items-center justify-center gap-6 mx-auto">
+                                <Card place={'2'} ranking={ranking[1]} avatar={ranking[1].user.avatar} className={'order-1 max-lg:order-2'} />
+                                <Card place={'1'} ranking={ranking[0]} avatar={ranking[0].user.avatar} className={'order-2 max-lg:order-1'} />
+                                <Card place={'3'} ranking={ranking[2]} avatar={ranking[2].user.avatar} className={'order-3 max-lg:order-3'} />
+                            </div>
+                        )}
                         <h3 className="text-gray-700 dark:text-gray-300 mt-10 text-xl font-bold text-center">
                             Top 10: mejores jugadores
                         </h3>
                         <TableRanking ranking={ranking} />
                     </>
-                ):(
+                ) : (
                     <Loading />
                 )}
             </div>

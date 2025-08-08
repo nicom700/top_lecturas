@@ -192,14 +192,14 @@ export default function Start() {
                                 }>
                                     {item.orientation === 'Vertical' || item.orientation === 'Horizontal' ? (
                                         <div className="relative overflow-hidden w-full max-sm:h-40 h-64 flex justify-center items-center bg-white border border-gray-300 dark:border-zinc-600">
-                                            <div className="animate-spin absolute bg-gradient-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%] opacity-100"></div>
+                                            <div className="animate-spin absolute bg-linear-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%] opacity-100"></div>
                                             <div className="z-10 h-full flex flex-col justify-center items-center gap-2 p-2">
                                                 <img src={item.url} className="object-contain w-full h-full m-auto" />
                                             </div>
                                         </div>
                                     ): (
                                         <div className="relative overflow-hidden w-full max-sm:h-40 h-64 flex justify-center items-center bg-white border border-gray-300 dark:border-zinc-600 text-gray-700 dark:text-gray-300">
-                                            <div className="animate-spin absolute bg-gradient-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%]"></div>
+                                            <div className="animate-spin absolute bg-linear-to-r from-violet-700 to-fuchsia-500 w-[200%] h-[200%]"></div>
                                             <div className="z-10 flex flex-col justify-center items-center gap-2 p-2 text-white">
                                                 <Icon icon="emptyImageIcon" />
                                                 <div className="font-bold text-center">Sin imágen</div>

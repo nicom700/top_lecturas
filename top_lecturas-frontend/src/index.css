@@ -1,6 +1,35 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #471AA0;
+  --color-primaryHover: #6535D5;
+  --color-primaryActive: #300f70;
+  --color-primaryDark: #a970ff;
+
+  --color-primaryHoverDark: #bf94ff;
+  --color-primaryActiveDark: #300f70;
+
+  --color-bgDarkPrimary: #0e0e10;
+  --color-bgDarkSecondary: #18181b;
+  --color-bgItemDark: #2f2f35;
+  --color-bgMenuDark: #1f1f23;
+
+  --color-DarkBtn: #9147ff;
+  --color-DarkBtnHover: #5c16c5;
+  --color-DarkBtnActive: #4900b5;
+}
+
+@variants dark {
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-primaryHover:hover {
+    background-color: var(--color-primaryHover);
+  }
+  /* and so on */
+}
 
 body {
     background-color: #f5f5ff70;

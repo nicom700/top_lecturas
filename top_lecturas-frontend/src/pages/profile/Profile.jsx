@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useUserContext } from 'src/context/UserContext';
-import { Tab } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Loading from 'src/components/Loading';
 import AvatarForm from 'src/components/forms/avatar/AvatarForm';
 import ProfileForm from 'src/components/forms/avatar/ProfileForm';
@@ -23,8 +23,8 @@ export default function Profile() {
     return (
         <div className="my-8 max-md:px-6 px-8 w-full flex flex-col items-center">
             <div className="max-w-7xl w-full flex flex-col gap-4 justify-around bg-white dark:bg-zinc-800 p-6 shadow-md rounded-xl">
-                <Tab.Group>
-                    <Tab.List className="flex space-x-1 border border-gray-300 dark:border-transparent rounded-full text-gray-700 dark:text-white bg-slate-100 dark:bg-bgDarkSecondary p-2 w-64 max-sm:w-52 m-auto">
+                <TabGroup className="flex flex-col gap-4">
+                    <TabList className="flex space-x-1 border border-gray-300 dark:border-transparent rounded-full text-gray-700 dark:text-white bg-slate-100 dark:bg-bgDarkSecondary p-2 w-64 max-sm:w-52 m-auto">
                         <Tab
                             className={({ selected }) =>
                                 classNames(
@@ -51,16 +51,16 @@ export default function Profile() {
                         >
                             Avatar
                         </Tab>
-                    </Tab.List>
-                    <Tab.Panels>
-                        <Tab.Panel>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel>
                             <ProfileForm />
-                        </Tab.Panel>
-                        <Tab.Panel>
+                        </TabPanel>
+                        <TabPanel>
                             <AvatarForm />
-                        </Tab.Panel>
-                    </Tab.Panels>
-                </Tab.Group>
+                        </TabPanel>
+                    </TabPanels>
+                </TabGroup>
             </div>
         </div>
     );

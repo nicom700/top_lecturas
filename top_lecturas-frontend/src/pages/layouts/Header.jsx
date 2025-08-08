@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Transition } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import Dropdown from 'src/components/Dropdown';
 import Icon from 'src/components/Icon';
 import Logo from 'src/components/Logo';
@@ -12,7 +12,7 @@ export function Header() {
     const pathname = location.pathname;
 
     return (
-        <header className="backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 dark:bg-opacity-80 border border-white/80 dark:border-zinc-800/80 text-white py-4 px-8 max-lg:px-4 bg-white dark:bg-zinc-800 dark:border-b-zinc-900 shadow-md sticky top-0 z-50">
+        <header className="backdrop-saturate-200 backdrop-blur-2xl bg-white/80 dark:bg-zinc-800/80 border border-white/80 dark:border-zinc-800/80 text-white py-4 px-8 max-lg:px-4 dark:border-b-zinc-900 shadow-md sticky top-0 z-50">
             <div className="flex justify-between items-center mx-auto max-w-7xl max-md:gap-2">
                 <div className="flex min-w-fit w-64 justify-start">
                     <Link
@@ -69,9 +69,9 @@ export function Header() {
                             as="div"
                             className="inline-block text-left"
                         >
-                            <Menu.Button className="w-12 h-12 relative flex items-center overflow-hidden justify-center gap-2 border border-gray-300 dark:border-transparent text-gray-700 dark:text-gray-300 dark:bg-bgItemDark dark:hover:bg-zinc-700 rounded-xl py-2 px-2 hover:shadow-md focus:shadow-md transition-shadow shadow-gray-300 dark:shadow-md">
+                            <MenuButton className="w-12 h-12 relative flex items-center overflow-hidden justify-center gap-2 border border-gray-300 dark:border-transparent text-gray-700 dark:text-gray-300 dark:bg-bgItemDark dark:hover:bg-zinc-700 rounded-xl py-2 px-2 hover:shadow-md focus:shadow-md transition-shadow shadow-gray-300 dark:shadow-md">
                                 <Icon icon="barsIcon" />
-                            </Menu.Button>
+                            </MenuButton>
                             <Transition
                                 as={Fragment}
                                 enter="transition ease-out duration-100"
@@ -81,13 +81,13 @@ export function Header() {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                             >
-                                <Menu.Items className="absolute left-1/2 transform -translate-x-1/2 w-60 flex flex-col z-10 rounded-xl shadow-md mt-2 py-4 bg-white dark:bg-bgMenuDark border border-gray-300 dark:border-transparent ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <Menu.Item>
+                                <MenuItems className="absolute left-1/2 transform -translate-x-1/2 w-60 flex flex-col z-10 rounded-xl shadow-md mt-2 py-4 bg-white dark:bg-bgMenuDark border border-gray-300 dark:border-transparent ring-1 ring-black ring-black/5 focus:outline-hidden">
+                                    <MenuItem>
                                         <div className="mb-4">
                                             <DarkMode />
                                         </div>
-                                    </Menu.Item>
-                                    <Menu.Item>
+                                    </MenuItem>
+                                    <MenuItem>
                                         {({ active }) => (
                                             <Link
                                                 to={'/start'}
@@ -100,8 +100,8 @@ export function Header() {
                                                 <span>Jugar</span>
                                             </Link>
                                         )}
-                                    </Menu.Item>
-                                    <Menu.Item>
+                                    </MenuItem>
+                                    <MenuItem>
                                         {({ active }) => (
                                             <Link
                                                 to={'/ranking'}
@@ -114,8 +114,8 @@ export function Header() {
                                                 <span>Top jugadores</span>
                                             </Link>
                                         )}
-                                    </Menu.Item>
-                                    <Menu.Item>
+                                    </MenuItem>
+                                    <MenuItem>
                                         {({ active }) => (
                                             <Link
                                                 to={'/us'}
@@ -128,8 +128,8 @@ export function Header() {
                                                 <span>Nosotros</span>
                                             </Link>
                                         )}
-                                    </Menu.Item>
-                                </Menu.Items>
+                                    </MenuItem>
+                                </MenuItems>
                             </Transition>
                         </Menu>
                     </div>
